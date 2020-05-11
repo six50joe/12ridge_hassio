@@ -1,0 +1,50 @@
+MimoLite:
+2020-04-07 16:20:53.148 Info, Node017, Value::Set - COMMAND_CLASS_SWITCH_BINARY - Switch - 0 - 1 - True
+2020-04-07 16:20:53.149 Info, Node017, SwitchBinary::Set - Setting node 17 to On
+2020-04-07 16:20:53.149 Detail, Node017, Queuing (Send) SwitchBinaryCmd_Set (Node=17): 0x01, 0x0a, 0x00, 0x13, 0x11, 0x03, 0x25, 0x01, 0xff, 0x25, 0x97, 0x9d
+2020-04-07 16:20:53.149 Detail, Node017, Queuing (Send) SwitchBinaryCmd_Get (Node=17): 0x01, 0x09, 0x00, 0x13, 0x11, 0x02, 0x25, 0x02, 0x25, 0x98, 0x6c
+2020-04-07 16:20:53.149 Detail, 
+2020-04-07 16:20:53.149 Info, Node017, Sending (Send) message (Callback ID=0x97, Expected Reply=0x13) - SwitchBinaryCmd_Set (Node=17): 0x01, 0x0a, 0x00, 0x13, 0x11, 0x03, 0x25, 0x01, 0xff, 0x25, 0x97, 0x9d
+2020-04-07 16:20:53.157 Detail, Node017,   Received: 0x01, 0x04, 0x01, 0x13, 0x01, 0xe8
+2020-04-07 16:20:53.157 Detail, Node017,   ZW_SEND_DATA delivered to Z-Wave stack
+2020-04-07 16:20:53.177 Detail, Node017,   Received: 0x01, 0x18, 0x00, 0x13, 0x97, 0x00, 0x00, 0x02, 0x00, 0xab, 0x7f, 0x7f, 0x7f, 0x7f, 0x01, 0x01, 0x03, 0x00, 0x00, 0x00, 0x00, 0x02, 0x01, 0x00, 0x00, 0xca
+2020-04-07 16:20:53.178 Detail, Node017,   ZW_SEND_DATA Request with callback ID 0x97 received (expected 0x97)
+2020-04-07 16:20:53.178 Info, Node017, Request RTT 28 Average Request RTT 89
+2020-04-07 16:20:53.178 Detail,   Expected callbackId was received
+2020-04-07 16:20:53.178 Detail,   Expected reply was received
+2020-04-07 16:20:53.178 Detail,   Message transaction complete
+2020-04-07 16:20:53.178 Detail, 
+2020-04-07 16:20:53.178 Detail, Node017, Removing current message
+2020-04-07 16:20:53.178 Detail, 
+2020-04-07 16:20:53.178 Info, Node017, Sending (Send) message (Callback ID=0x98, Expected Reply=0x04) - SwitchBinaryCmd_Get (Node=17): 0x01, 0x09, 0x00, 0x13, 0x11, 0x02, 0x25, 0x02, 0x25, 0x98, 0x6c
+2020-04-07 16:20:53.185 Detail, Node017,   Received: 0x01, 0x04, 0x01, 0x13, 0x01, 0xe8
+2020-04-07 16:20:53.185 Detail, Node017,   ZW_SEND_DATA delivered to Z-Wave stack
+2020-04-07 16:20:53.206 Detail, Node017,   Received: 0x01, 0x18, 0x00, 0x13, 0x98, 0x00, 0x00, 0x02, 0x00, 0xa8, 0x7f, 0x7f, 0x7f, 0x7f, 0x01, 0x01, 0x03, 0x00, 0x00, 0x00, 0x00, 0x02, 0x01, 0x00, 0x00, 0xc6
+2020-04-07 16:20:53.206 Detail, Node017,   ZW_SEND_DATA Request with callback ID 0x98 received (expected 0x98)
+2020-04-07 16:20:53.206 Info, Node017, Request RTT 28 Average Request RTT 58
+2020-04-07 16:20:53.206 Detail,   Expected callbackId was received
+2020-04-07 16:20:53.220 Detail, Node017,   Received: 0x01, 0x0b, 0x00, 0x04, 0x00, 0x11, 0x03, 0x25, 0x03, 0xff, 0xad, 0x00, 0x96
+2020-04-07 16:20:53.220 Detail, 
+2020-04-07 16:20:53.220 Info, Node017, Response RTT 41 Average Response RTT 2549
+2020-04-07 16:20:53.220 Info, Node017, Received SwitchBinary report from node 17: level=On
+2020-04-07 16:20:53.220 Detail, Node017, Refreshed Value: old value=false, new value=true, type=bool
+2020-04-07 16:20:53.220 Detail, Node017, Changes to this value are not verified
+2020-04-07 16:20:53.220 Detail, Node017,   Expected reply and command class was received
+2020-04-07 16:20:53.220 Detail, Node017,   Message transaction complete
+2020-04-07 16:20:53.220 Detail, 
+2020-04-07 16:20:53.221 Detail, Node017, Removing current message
+2020-04-07 16:20:53.221 Detail, Node017, Notification: ValueChanged
+2020-04-07 16:20:53.238 Detail, Node017,   Received: 0x01, 0x0b, 0x00, 0x04, 0x00, 0x11, 0x03, 0x20, 0x01, 0xff, 0xab, 0x00, 0x97
+2020-04-07 16:20:53.238 Detail, 
+2020-04-07 16:20:53.238 Info, Node017, Received Basic set from node 17: level=255.  Sending event notification.
+2020-04-07 16:20:53.238 Detail, Node017, Notification: NodeEvent
+2020-04-07 16:20:56.132 Detail, Node017,   Received: 0x01, 0x0b, 0x00, 0x04, 0x04, 0x11, 0x03, 0x25, 0x03, 0x00, 0xb5, 0x00, 0x75
+2020-04-07 16:20:56.132 Detail, 
+2020-04-07 16:20:56.132 Info, Node017, Received SwitchBinary report from node 17: level=Off
+2020-04-07 16:20:56.132 Detail, Node017, Refreshed Value: old value=true, new value=false, type=bool
+2020-04-07 16:20:56.132 Detail, Node017, Changes to this value are not verified
+2020-04-07 16:20:56.132 Detail, Node017, Notification: ValueChanged
+2020-04-07 16:21:03.228 Detail, Node017,   Received: 0x01, 0x0b, 0x00, 0x04, 0x00, 0x11, 0x03, 0x20, 0x01, 0x00, 0xaa, 0x00, 0x69
+2020-04-07 16:21:03.228 Detail, 
+2020-04-07 16:21:03.228 Info, Node017, Received Basic set from node 17: level=0.  Sending event notification.
+2020-04-07 16:21:03.228 Detail, Node017, Notification: NodeEvent

@@ -1,0 +1,53 @@
+- platform: template
+  sensors:
+    #
+    # Smoke and Carbon Monixide Detectors
+    #
+    smoke_status:
+      friendly_name: "Smoke Status"
+      value_template: >-
+        {% if is_state("sensor.smoke_detector_alarm_level", "255") and is_state("sensor.smoke_detector_alarm_type", "1")%}
+          smoke
+        {% elif is_state("sensor.smoke_detector_alarm_level", "255") and is_state("sensor.smoke_detector_alarm_type", "2")%}
+          co
+        {% else %}
+          idle
+        {% endif %}
+      icon_template: >-
+        {% if is_state("sensor.smoke_detector_alarm_level", "255") and is_state("sensor.smoke_detector_alarm_type", "1")%}
+          mdi:fire
+        {% elif is_state("sensor.smoke_detector_alarm_level", "255") and is_state("sensor.smoke_detector_alarm_type", "2")%}
+          mdi:cloud-outline
+        {% else %}
+          mdi:smoke-detector
+        {% endif %}
+    garage_status:
+      friendly_name: "Garage Status"
+      value_template: >-
+        {% if is_state("sensor.garage_door_alarm_level", "255")%}
+          open
+        {% else %}
+          closed
+        {% endif %}
+      icon_template: >-
+        {% if is_state("sensor.garage_door_alarm_level", "255")%}
+          mdi:garage-open-variant
+        {% else %}
+          mdi:garage-variant
+        {% endif %}
+    flood_status:
+      friendly_name: "Flood Status"
+      value_template: >-
+        {% if is_state("sensor.flood.sernsor_flood", "255")%}
+          dry
+        {% else %}
+          flood
+        {% endif %}
+      icon_template: >-
+        {% if is_state("sensor.flood.sensor_flood", "255")%}
+          mdi:waves
+        {% else %}
+          mdi:water-off
+        {% endif %}
+
+

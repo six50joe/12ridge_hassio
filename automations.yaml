@@ -1,0 +1,97 @@
+- id: Lake_Hassio_Rebooted
+  alias: Reboot notification
+  description: Notify when system rebooted
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition: []
+  action:
+  - data:
+      message: Lake House Hassio Rebooted
+    service: notify.lakehouse_hassio
+- id: lakehouse_smoke
+  alias: Smoke Detected
+  description: ''
+  trigger:
+  - entity_id: sensor.smoke_status
+    from: idle
+    platform: state
+    to: smoke
+  condition: []
+  action:
+  - data:
+      message: Smoke detected upstairs at Lake House!
+    service: notify.lakehouse_hassio
+- id: lakehouse_co
+  alias: Carbon Monoxide Detected
+  description: ''
+  trigger:
+  - entity_id: sensor.smoke_status
+    from: idle
+    platform: state
+    to: co
+  condition: []
+  action:
+  - data:
+      message: Carbon Monoxide detected upstairs at Lake House!
+    service: notify.lakehouse_hassio
+- id: lakehouse_flood
+  alias: Water detected in basement
+  description: ''
+  trigger:
+  - entity_id: sensor.flood_status
+    from: dry
+    platform: state
+    to: flood
+  condition: []
+  action:
+  - data:
+      message: Lakehouse- Water detected on basement floor
+    service: notify.lakehouse_hassio
+- id: '1588362768033'
+  alias: Propane Reading Old
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - data:
+      node_id: 19
+      parameter: 11
+      size: 1
+      value: 100
+    service: zwave.set_config_parameter
+  - device_id: 1376937c0ea042f5be036cefd84348bd
+    domain: switch
+    entity_id: switch.mimolite_switch
+    type: turn_on
+  - data_template:
+      node_id: 19
+      value_id: '72057594361692194'
+    service: zwave.refresh_node_value
+  - delay: '2'
+  - data_template:
+      node_id: 19
+      value_id: '72057594361692194'
+    service: zwave.refresh_node_value
+  - data:
+      name: Joe
+    service: python_script.hello_world
+- id: '1588367245709'
+  alias: ZWRefreshTest
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - service: zwave.refresh_node_value
+    data_template:
+      node_id: 19
+      value_id: '72057594361692194'
+- id: '1588717297110'
+  alias: Read Propane Level
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - event: update_propane_level
+    event_data:
+      state: 'on'

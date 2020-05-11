@@ -1,0 +1,66 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+sensor: !include_dir_merge_list sensors
+
+logger:
+  default: info
+  logs:
+    homeassistant.components.yamaha: critical
+    custom_components.my_integration: critical
+
+# Notifications
+notify:
+  - name: Lakehouse Hassio
+    platform: pushover
+    api_key:  aycgcxvcscf63ydd2bwo6cktws863t
+    user_key: utevcgmbad4mq263sto1k6sfw5bq45
+
+python_script:
+
+# Example configuration.yaml entry
+amcrest:
+  - host: 172.16.1.50
+    username: six50joe
+    password: unbelief-ramp-best
+    name: Living Room
+
+  - host: 172.16.1.51
+    username: six50joe
+    password: unbelief-ramp-best
+    name: Driveway
+
+camera:
+  - platform: amcrest
+
+light:
+  - platform: template
+    lights:
+      outside_light:
+        friendly_name: "Path Lights"
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.outdoor_light_switch
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: switch.outdoor_light_switch
+
+variable:
+  propane_percentage:
+    value: 1
+    name: PropanePercentage
