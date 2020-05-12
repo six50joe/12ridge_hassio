@@ -86,8 +86,6 @@ class PropaneLevel(hass.Hass):
 
         self.read_propane_thresholds()
         
-        prev_pct_state = float(self.get_state("variable.propane_percentage", "state"))
-
         retry = 0
 
         prev_pct    = None
@@ -143,4 +141,7 @@ class PropaneLevel(hass.Hass):
 
         calc_pct = round(calc_pct, 1)
         self.log("Propane level is %f" % calc_pct)
+
+        prev_pct_state = float(self.get_state("variable.propane_percentage", "state"))
+        self.call_service("variable/set_variable", variable='prev_propane_percentage', value=prev_pct_state)
         self.call_service("variable/set_variable", variable='propane_percentage', value=calc_pct)
