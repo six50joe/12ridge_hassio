@@ -9,6 +9,8 @@ CONFIG_FILE_DIR           = "/config/data"
 RELAY_THRESHOLDS_FILENAME = "relay_thresholds.txt"
 
 propane_thresholds = None
+simulate           = None
+#simulate           = 1200
 
 #
 # Read Propane Level
@@ -18,7 +20,10 @@ propane_thresholds = None
 
 class PropaneLevel(hass.Hass):
     def initialize(self):
-        self.listen_event(self.read_mimolite, "update_propane_level")
+        if simulate:
+            self.listen_event(self.get_propane_level, "update_propane_level")
+        else:
+            self.listen_event(self.read_mimolite, "update_propane_level")
         self.listen_state(self.get_propane_level, "sensor.mimolite_general")
 
     def get_propane_sensor_reading(self):
@@ -82,7 +87,17 @@ class PropaneLevel(hass.Hass):
         for key in sorted(propane_thresholds, key=float):
             outFile.write("%s,%s\n" % (key, propane_thresholds[key]))
 
-    def get_propane_level(self, entity, data, arg1, arg2, arg3):
+    def check_low_level(self, threshold, calc_pct, prev_pct_state):
+        if calc_pct < threshold and prev_pct_state > threshold:
+            status = "Propane level ( %d%% ) fell below %d%%" % (calc_pct, threshold)
+            #self.call_service("variable/set_variable", variable='propane_alert', value=status)
+            self.send_notification(status)
+
+    def send_notification(self, alert):
+        self.log("Alerting: %s" % alert)
+        self.call_service("notify/lakehouse_hassio", message=alert)
+            
+    def get_propane_level(self, entity=None, data=None, arg1=None, arg2=None, arg3=None):
 
         self.read_propane_thresholds()
         
@@ -94,7 +109,12 @@ class PropaneLevel(hass.Hass):
 
         last_pct = list(sorted(propane_thresholds.keys()))[-1]
         while not calc_pct and retry < 3:
-            sensor = float(self.get_state("sensor.mimolite_general", "state"))
+            if simulate:
+                # Simulation
+                sensor = float(simulate)
+            else: 
+                sensor = float(self.get_state("sensor.mimolite_general", "state"))
+
             self.log("Calculating pct for threshold: %f" % sensor)
             for pct in sorted(propane_thresholds, key=float):
                 thresh = float(propane_thresholds[pct])
@@ -140,8 +160,18 @@ class PropaneLevel(hass.Hass):
                 retry = retry + 1
 
         calc_pct = round(calc_pct, 1)
-        self.log("Propane level is %f" % calc_pct)
 
         prev_pct_state = float(self.get_state("variable.propane_percentage", "state"))
         self.call_service("variable/set_variable", variable='prev_propane_percentage', value=prev_pct_state)
         self.call_service("variable/set_variable", variable='propane_percentage', value=calc_pct)
+        self.log("Propane level is %f (prev=%f)" % (calc_pct, prev_pct_state))
+
+        if calc_pct - prev_pct_state > 10 and calc_pct > 50:
+            status = "Propane has been refilled to (%d%%)" % (calc_pct)
+            self.send_notification(status)
+            #self.call_service("variable/set_variable", variable='propane_alert', value=status)
+        
+        self.check_low_level(50, calc_pct, prev_pct_state)
+        self.check_low_level(40, calc_pct, prev_pct_state)
+        self.check_low_level(30, calc_pct, prev_pct_state)
+        self.check_low_level(20, calc_pct, prev_pct_state)

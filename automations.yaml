@@ -95,3 +95,14 @@
   - event: update_propane_level
     event_data:
       state: 'on'
+- id: '1589322076669'
+  alias: Daily Propane Level Update
+  description: ''
+  trigger:
+  - event: sunrise
+    platform: sun
+  condition: []
+  action:
+  - event: update_propane_level
+    event_data:
+      state: 'on'

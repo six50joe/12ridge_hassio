@@ -64,3 +64,9 @@ variable:
   propane_percentage:
     value: 1
     name: PropanePercentage
+  prev_propane_percentage:
+    value: 1
+    name: PropanePercentage
+  propane_alert:
+    value: ""
+    name: PropaneAlert
