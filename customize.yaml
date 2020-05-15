@@ -1,0 +1,6 @@
+person.joseph_thomas:
+  entity_picture: /local/JoeBadge2.jpg
+  friendly_name: Joseph Thomas
+person.jamie_thomas:
+  entity_picture: /local/JamieBadge.jpg
+zone.home: {}
