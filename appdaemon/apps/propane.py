@@ -24,7 +24,7 @@ class PropaneLevel(hass.Hass):
             self.listen_event(self.get_propane_level, "update_propane_level")
         else:
             self.listen_event(self.read_mimolite, "update_propane_level")
-        self.listen_state(self.get_propane_level, "sensor.mimolite_general")
+        self.listen_state(self.mimolite_sensor_update, "sensor.mimolite_general")
 
     def get_propane_sensor_reading(self):
         reading = 0
@@ -45,9 +45,9 @@ class PropaneLevel(hass.Hass):
         self.turn_on("switch.mimolite_switch")
         self.log("Queueing Sensor Read")
         self.call_service("zwave/refresh_node_value", node_id=19, value_id='72057594361692194')
-        reading = int(float(self.get_state("sensor.mimolite_general", "state")))
-        self.log("Reading: %d" % reading)
-        return reading
+        # reading = int(float(self.get_state("sensor.mimolite_general", "state")))
+        # self.log("Reading: %d" % reading)
+        # return reading
 
     def read_propane_thresholds(self):
         global propane_thresholds
@@ -97,6 +97,13 @@ class PropaneLevel(hass.Hass):
         self.log("Alerting: %s" % alert)
         self.call_service("notify/lakehouse_hassio", message=alert)
             
+    def mimolite_sensor_update(self, entity=None, data=None, arg1=None, arg2=None, arg3=None):
+        sensor = float(self.get_state("sensor.mimolite_general", "state"))
+        self.log("Reading received from mimolite: %f" % sensor)
+        updated = datetime.datetime.today().strftime('%Y-%m-%d_%H:%M:%S')
+        self.call_service("variable/set_variable", variable='last_mimolite_update', value=updated)
+        self.get_propane_level(None, sensor)
+        
     def get_propane_level(self, entity=None, data=None, arg1=None, arg2=None, arg3=None):
 
         self.read_propane_thresholds()
@@ -113,7 +120,7 @@ class PropaneLevel(hass.Hass):
                 # Simulation
                 sensor = float(simulate)
             else: 
-                sensor = float(self.get_state("sensor.mimolite_general", "state"))
+                sensor = data
 
             self.log("Calculating pct for threshold: %f" % sensor)
             for pct in sorted(propane_thresholds, key=float):

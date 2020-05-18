@@ -70,3 +70,6 @@ variable:
   propane_alert:
     value: ""
     name: PropaneAlert
+  last_mimolite_update:
+    value: ""
+    name: LastMimoliteUpdate
