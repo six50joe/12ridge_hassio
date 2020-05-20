@@ -72,4 +72,4 @@ variable:
     name: PropaneAlert
   last_mimolite_update:
     value: ""
-    name: LastMimoliteUpdate
+    name: MimoSensor
