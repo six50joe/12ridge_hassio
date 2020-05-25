@@ -5,3 +5,6 @@ hello_world:
 propane:
   module: propane
   class: PropaneLevel
+set_zwave_params:
+  module: set_zwave_params
+  class: SetDeviceParams

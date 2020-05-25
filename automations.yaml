@@ -106,3 +106,75 @@
   - event: update_propane_level
     event_data:
       state: 'on'
+- id: joe_left_home
+  alias: Joe Left Home
+  description: ''
+  trigger:
+  - entity_id: person.joe_thomas
+    from: home
+    platform: state
+    to: not_home
+  condition: []
+  action:
+  - data:
+      message: Joe Left Home
+    service: notify.lakehouse_hassio
+- id: jamie_left_home
+  alias: Jamie Left Home
+  description: ''
+  trigger:
+  - entity_id: person.jamie_thomas
+    from: home
+    platform: state
+    to: not_home
+  condition: []
+  action:
+  - data:
+      message: Jamie Left Home
+    service: notify.lakehouse_hassio
+- id: joe_arrived_home
+  alias: Joe Arrived Home
+  description: ''
+  trigger:
+  - entity_id: person.joe_thomas
+    from: not_home
+    platform: state
+    to: home
+  condition: []
+  action:
+  - data:
+      message: Joe Arrived Home
+    service: notify.lakehouse_hassio
+- id: jamie_arrived_home
+  alias: Jamie Arrived Home
+  description: ''
+  trigger:
+  - entity_id: person.jamie_thomas
+    from: not_home
+    platform: state
+    to: home
+  condition: []
+  action:
+  - data:
+      message: Jamie Arrived Home
+    service: notify.lakehouse_hassio
+- id: '1590326915142'
+  alias: Front Door Event Test
+  description: ''
+  trigger:
+  - entity_id: sensor.front_door_alarm_level
+    platform: state
+  condition: []
+  action:
+  - data:
+      message: Front Door Event
+    service: notify.lakehouse_hassio
+- id: 'set_zwave_device_params'
+  alias: Set ZWave Device Params
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - event: set_zwave_device_params
+    event_data:
+      state: 'on'

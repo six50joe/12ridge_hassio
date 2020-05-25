@@ -21,6 +21,20 @@
         {% else %}
           mdi:smoke-detector
         {% endif %}
+    front_door_status:
+      friendly_name: "Front_Door Status"
+      value_template: >-
+        {% if is_state("sensor.front_door_alarm_level", "0")%}
+          closed
+        {% else %}
+          open
+        {% endif %}
+      icon_template: >-
+        {% if is_state("sensor.front__door_alarm_level", "0")%}
+          mdi:door
+        {% else %}
+          mdi:door-open
+        {% endif %}
     garage_status:
       friendly_name: "Garage Status"
       value_template: >-
