@@ -17,3 +17,5 @@ class SetDeviceParams(hass.Hass):
         # Front Door
         self.call_service("zwave/set_config_parameter", node_id=20, parameter=121, value=17)
         self.log("Set Front Door to report battery + Binary Report")
+        self.call_service("zwave/set_config_parameter", node_id=7, parameter=121, value=17)
+        self.log("Set Garage Door to report battery + Binary Report")

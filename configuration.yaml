@@ -15,6 +15,19 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 sensor: !include_dir_merge_list sensors
+binary_sensor: !include binary_sensor.yaml
+
+homeassistant:
+  customize: !include customize.yaml
+
+device_tracker:
+  - platform: nmap_tracker
+    hosts:
+     - 192.168.178.193  
+     - 192.168.178.57 
+     - 192.168.178.144  
+    home_interval: 60
+    consider_home: 600
 
 logger:
   default: info
@@ -29,6 +42,7 @@ notify:
     api_key:  aycgcxvcscf63ydd2bwo6cktws863t
     user_key: utevcgmbad4mq263sto1k6sfw5bq45
 
+shopping_list:
 python_script:
 
 # Example configuration.yaml entry
@@ -45,6 +59,8 @@ amcrest:
 
 camera:
   - platform: amcrest
+
+shopping_list:
 
 light:
   - platform: template

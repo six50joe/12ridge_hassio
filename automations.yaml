@@ -169,7 +169,7 @@
   - data:
       message: Front Door Event
     service: notify.lakehouse_hassio
-- id: 'set_zwave_device_params'
+- id: set_zwave_device_params
   alias: Set ZWave Device Params
   description: ''
   trigger: []
@@ -178,3 +178,58 @@
   - event: set_zwave_device_params
     event_data:
       state: 'on'
+- id: front_door_opened
+  alias: Front Door Opened
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.front_door_sensor
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: person.joe_thomas
+      state: not_home
+    - condition: state
+      entity_id: person.jamie_thomas
+      state: not_home
+  action:
+  - data:
+      message: Lakehouse Front Door Opened
+    service: notify.lakehouse_hassio
+- id: garage_door_opened
+  alias: Garage Door Opened
+  description: ''
+  trigger:
+  - entity_id: sensor.garage_door_access_control
+    from: "23"
+    platform: state
+    to: "22"
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: person.joe_thomas
+      state: not_home
+    - condition: state
+      entity_id: person.jamie_thomas
+      state: not_home
+  action:
+  - data:
+      message: Lakehouse Garage Door Opened
+    service: notify.lakehouse_hassio
+- id: 34dt_disconnected
+  alias: Check Goldens Bridge Disconnected
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.goldens_bridge
+    from: Connected
+    platform: state
+    to: Disconnected
+  condition: []
+  action:
+  - data:
+      message: Goldens Bridge had been reachable but is now not
+    service: notify.lakehouse_hassio

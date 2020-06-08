@@ -24,13 +24,13 @@
     front_door_status:
       friendly_name: "Front_Door Status"
       value_template: >-
-        {% if is_state("sensor.front_door_alarm_level", "0")%}
+        {% if is_state("binary_sensor.front_door_sensor", "off")%}
           closed
         {% else %}
           open
         {% endif %}
       icon_template: >-
-        {% if is_state("sensor.front__door_alarm_level", "0")%}
+        {% if is_state("binary_sensor.front_door_sensor", "off")%}
           mdi:door
         {% else %}
           mdi:door-open
@@ -38,27 +38,27 @@
     garage_status:
       friendly_name: "Garage Status"
       value_template: >-
-        {% if is_state("sensor.garage_door_alarm_level", "255")%}
-          open
-        {% else %}
+        {% if is_state("sensor.garage_door_access_control", "23")%}
           closed
+        {% else %}
+          open
         {% endif %}
       icon_template: >-
-        {% if is_state("sensor.garage_door_alarm_level", "255")%}
-          mdi:garage-open-variant
-        {% else %}
+        {% if is_state("sensor.garage_door_access_control", "23")%}
           mdi:garage-variant
+        {% else %}
+          mdi:garage-open-variant
         {% endif %}
     flood_status:
       friendly_name: "Flood Status"
       value_template: >-
-        {% if is_state("sensor.flood.sernsor_flood", "255")%}
-          dry
-        {% else %}
+        {% if is_state("binary_sensor.flood_sensor_general", "on")%}
           flood
+        {% else %}
+          dry
         {% endif %}
       icon_template: >-
-        {% if is_state("sensor.flood.sensor_flood", "255")%}
+        {% if is_state("binary_sensor.flood_sensor_general", "on")%}
           mdi:waves
         {% else %}
           mdi:water-off
