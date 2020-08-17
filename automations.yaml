@@ -106,6 +106,17 @@
   - event: update_propane_level
     event_data:
       state: 'on'
+- id: archive_logs
+  alias: Create an archive tar file of current logs
+  description: ''
+  trigger:
+  - event: sunrise
+    platform: sun
+  condition: []
+  action:
+  - event: create_archive
+    event_data:
+      state: 'on'
 - id: joe_left_home
   alias: Joe Left Home
   description: ''
@@ -204,9 +215,9 @@
   description: ''
   trigger:
   - entity_id: sensor.garage_door_access_control
-    from: "23"
+    from: '23'
     platform: state
-    to: "22"
+    to: '22'
   condition:
   - condition: and
     conditions:
@@ -225,11 +236,24 @@
   description: ''
   trigger:
   - entity_id: binary_sensor.goldens_bridge
-    from: Connected
+    from: 'on'
     platform: state
-    to: Disconnected
+    to: 'off'
   condition: []
   action:
   - data:
       message: Goldens Bridge had been reachable but is now not
+    service: notify.lakehouse_hassio
+- id: 34dt_reconnected
+  alias: Check Goldens Reconnected
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.goldens_bridge
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data:
+      message: Goldens Bridge is now reachable
     service: notify.lakehouse_hassio

@@ -5,6 +5,9 @@ hello_world:
 propane:
   module: propane
   class: PropaneLevel
+archive:
+  module: archive
+  class: ArchiveLogs
 set_zwave_params:
   module: set_zwave_params
   class: SetDeviceParams

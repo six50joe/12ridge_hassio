@@ -10,7 +10,7 @@ RELAY_THRESHOLDS_FILENAME = "relay_thresholds.txt"
 
 propane_thresholds = None
 simulate           = None
-#simulate           = 1200
+#simulate           = 1768
 
 #
 # Read Propane Level
@@ -28,7 +28,7 @@ class PropaneLevel(hass.Hass):
 
     def get_propane_sensor_reading(self):
         reading = 0
-        #test_val = 2900
+        # test_val = 1769
         test_val = None
         if test_val is None:
             reading = float(self.read_mimolite())
