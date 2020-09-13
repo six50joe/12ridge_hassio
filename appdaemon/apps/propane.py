@@ -38,7 +38,7 @@ class PropaneLevel(hass.Hass):
         self.log("Propane sensor reading (%d)" % reading)
         return reading
             
-    def read_mimolite(self, entity, data, kwargs):
+    def read_mimolite(self, entity=None, data=None, kwargs=None):
         self.log("Setting MimoLite Relay Delay")
         self.call_service("zwave/set_config_parameter", node_id=19, parameter=11, value=150)
         self.log("Turning On Relay")
@@ -113,7 +113,7 @@ class PropaneLevel(hass.Hass):
         prev_pct    = None
         prev_thresh = None
         calc_pct    = None
-
+        
         last_pct = list(sorted(propane_thresholds.keys()))[-1]
         while not calc_pct and retry < 3:
             if simulate:
@@ -121,6 +121,11 @@ class PropaneLevel(hass.Hass):
                 sensor = float(simulate)
             else: 
                 sensor = data
+                if sensor > 1.0 and sensor < 100.0:
+                    self.log("Low reading value %f, retrying" % sensor)
+                    time.sleep(30)
+                    self.read_mimolite()
+                    return
 
             self.log("Calculating pct for threshold: %f" % sensor)
             for pct in sorted(propane_thresholds, key=float):
@@ -162,9 +167,8 @@ class PropaneLevel(hass.Hass):
             # Might have been a bad reading; retry
             if not calc_pct:
                 self.log("possible bad value, retrying: " + str(pct))
+                time.sleep(30)
                 self.read_mimolite()
-                time.sleep(15)
-                retry = retry + 1
 
         calc_pct = round(calc_pct, 1)
 
@@ -173,7 +177,7 @@ class PropaneLevel(hass.Hass):
         self.call_service("variable/set_variable", variable='propane_percentage', value=calc_pct)
         self.log("Propane level is %f (prev=%f)" % (calc_pct, prev_pct_state))
 
-        if calc_pct - prev_pct_state > 10 and calc_pct > 50:
+        if calc_pct - prev_pct_state > 10 and calc_pct > 50 and prev_pct_state > 5.0:
             status = "Propane has been refilled to (%d%%)" % (calc_pct)
             self.send_notification(status)
             #self.call_service("variable/set_variable", variable='propane_alert', value=status)

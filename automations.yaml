@@ -106,6 +106,7 @@
   - event: update_propane_level
     event_data:
       state: 'on'
+  mode: single
 - id: archive_logs
   alias: Create an archive tar file of current logs
   description: ''

@@ -21,13 +21,10 @@ homeassistant:
   customize: !include customize.yaml
 
 device_tracker:
-  - platform: nmap_tracker
+  - platform: ping
     hosts:
-     - 192.168.178.193  
-     - 192.168.178.57 
-     - 192.168.178.144  
-    home_interval: 60
-    consider_home: 600
+      jamie_iphonex: 172.16.0.71
+      joe_iphonexsmax: 172.16.0.70
 
 logger:
   default: info
@@ -41,6 +38,14 @@ notify:
     platform: pushover
     api_key:  aycgcxvcscf63ydd2bwo6cktws863t
     user_key: utevcgmbad4mq263sto1k6sfw5bq45
+
+device_tracker:
+  - platform: icloud3
+    username: !secret fmf_icloud
+    password: !secret fmf_icloud_pw
+    track_devices:
+      - six50joe_iphone > six50joe@icloud.com, JoeBadge2.jpg
+      - jamies_iphonex > jamiedylana@gmail.com, JamieBadge.jpg
 
 shopping_list:
 python_script:
