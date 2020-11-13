@@ -1,3 +1,7 @@
+- platform: command_line
+  name: 34DT Hassio
+  command: /usr/bin/nc -z -w7 deerjoe.groks-the.info 8123 && echo Up || echo Down
+
 - platform: template
   sensors:
     #

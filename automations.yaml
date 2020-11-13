@@ -236,25 +236,75 @@
   alias: Check Goldens Bridge Disconnected
   description: ''
   trigger:
-  - entity_id: binary_sensor.goldens_bridge
-    from: 'on'
+  - entity_id: sensor.34dt_hassio
+    from: Up
     platform: state
-    to: 'off'
+    to: Down
   condition: []
   action:
   - data:
       message: Goldens Bridge had been reachable but is now not
     service: notify.lakehouse_hassio
+  mode: single
 - id: 34dt_reconnected
   alias: Check Goldens Reconnected
   description: ''
   trigger:
-  - entity_id: binary_sensor.goldens_bridge
-    from: 'off'
+  - entity_id: sensor.34dt_hassio
+    from: Down
     platform: state
-    to: 'on'
+    to: Up
   condition: []
   action:
   - data:
       message: Goldens Bridge is now reachable
     service: notify.lakehouse_hassio
+  mode: single
+- id: '1600695831917'
+  alias: Turn Track Lights On Full
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - brightness_pct: 100
+    device_id: 165e787014f64dc09c4c906cbe7e227a
+    domain: light
+    entity_id: light.track_light_dimmer
+    type: turn_on
+  mode: single
+- id: '1600695920076'
+  alias: Turn On Movie Lighting
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - brightness_pct: 1
+    device_id: 165e787014f64dc09c4c906cbe7e227a
+    domain: light
+    entity_id: light.track_light_dimmer
+    type: turn_on
+  mode: single
+- id: '1600696061493'
+  alias: Turn Off Track Lights
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - device_id: 165e787014f64dc09c4c906cbe7e227a
+    domain: light
+    entity_id: light.track_light_dimmer
+    type: turn_off
+  mode: single
+- id: '1600696163642'
+  alias: Turn Off Track Lights at Sunrise
+  description: ''
+  trigger:
+  - event: sunrise
+    platform: sun
+  condition: []
+  action:
+  - device_id: 165e787014f64dc09c4c906cbe7e227a
+    domain: light
+    entity_id: light.track_light_dimmer
+    type: turn_off
+  mode: single

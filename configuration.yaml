@@ -50,7 +50,6 @@ device_tracker:
 shopping_list:
 python_script:
 
-# Example configuration.yaml entry
 amcrest:
   - host: 172.16.1.50
     username: six50joe
