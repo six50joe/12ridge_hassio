@@ -61,6 +61,11 @@ amcrest:
     password: unbelief-ramp-best
     name: Driveway
 
+  - host: 172.16.1.52
+    username: six50joe
+    password: unbelief-ramp-best
+    name: Upstairs Bedroom
+
 camera:
   - platform: amcrest
 
