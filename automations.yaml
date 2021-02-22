@@ -9,7 +9,7 @@
   - data:
       message: Lake House Hassio Rebooted
       data:
-         priority: -1
+        priority: -1
     service: notify.lakehouse_hassio
 - id: lakehouse_smoke
   alias: Smoke Detected
@@ -24,9 +24,9 @@
   - data:
       message: Smoke detected at Lake House!
       data:
-         priority: 2
-         retry: 500
-         expire: 7200
+        priority: 2
+        retry: 500
+        expire: 7200
     service: notify.lakehouse_hassio
 - id: lakehouse_co
   alias: Carbon Monoxide Detected
@@ -41,9 +41,9 @@
   - data:
       message: Carbon Monoxide detected at Lake House!
       data:
-         priority: 2
-         retry: 500
-         expire: 7200
+        priority: 2
+        retry: 500
+        expire: 7200
     service: notify.lakehouse_hassio
 - id: lakehouse_flood
   alias: Water detected in basement
@@ -58,10 +58,10 @@
   - data:
       message: Lakehouse- Water detected on basement floor
       data:
-         priority: 2
-         retry: 900
-         expire: 7200
-         sound: mechanical
+        priority: 2
+        retry: 900
+        expire: 7200
+        sound: mechanical
     service: notify.lakehouse_hassio
 - id: '1588362768033'
   alias: Propane Reading Old
@@ -137,61 +137,61 @@
   alias: Joe Left Home
   description: ''
   trigger:
-  - entity_id: person.joe_thomas
-    from: home
+  - entity_id: person.joe
+    from: "on"
     platform: state
-    to: not_home
+    to: "off"
   condition: []
   action:
   - data:
       message: Joe Left Home
       data:
-         priority: -1
+        priority: -1
     service: notify.lakehouse_hassio
 - id: jamie_left_home
   alias: Jamie Left Home
   description: ''
   trigger:
-  - entity_id: person.jamie_thomas
-    from: home
+  - entity_id: person.jamie
+    from: "on"
     platform: state
-    to: not_home
+    to: "off"
   condition: []
   action:
   - data:
       message: Jamie Left Home
       data:
-         priority: -1
+        priority: -1
     service: notify.lakehouse_hassio
 - id: joe_arrived_home
   alias: Joe Arrived Home
   description: ''
   trigger:
-  - entity_id: person.joe_thomas
-    from: not_home
+  - entity_id: person.joe
+    from: "off"
     platform: state
-    to: home
+    to: "on"
   condition: []
   action:
   - data:
       message: Joe Arrived Home
       data:
-         priority: -1
+        priority: -1
     service: notify.lakehouse_hassio
 - id: jamie_arrived_home
   alias: Jamie Arrived Home
   description: ''
   trigger:
-  - entity_id: person.jamie_thomas
-    from: not_home
+  - entity_id: person.jamie
+    from: "off"
     platform: state
-    to: home
+    to: "on"
   condition: []
   action:
   - data:
       message: Jamie Arrived Home
       data:
-         priority: -1
+        priority: -1
     service: notify.lakehouse_hassio
 - id: '1590326915142'
   alias: Front Door Event Test
@@ -204,7 +204,7 @@
   - data:
       message: Front Door Event
       data:
-         priority: -1
+        priority: -1
     service: notify.lakehouse_hassio
 - id: set_zwave_device_params
   alias: Set ZWave Device Params
@@ -227,18 +227,18 @@
   - condition: and
     conditions:
     - condition: state
-      entity_id: person.joe_thomas
+      entity_id: person.joe
       state: not_home
     - condition: state
-      entity_id: person.jamie_thomas
+      entity_id: person.jamie
       state: not_home
   action:
   - data:
       message: Lakehouse Front Door Opened
       data:
-         priority: 2
-         retry: 1800
-         expire: 3600
+        priority: 2
+        retry: 1800
+        expire: 3600
     service: notify.lakehouse_hassio
 - id: garage_door_opened
   alias: Garage Door Opened
@@ -252,18 +252,18 @@
   - condition: and
     conditions:
     - condition: state
-      entity_id: person.joe_thomas
+      entity_id: person.joe
       state: not_home
     - condition: state
-      entity_id: person.jamie_thomas
+      entity_id: person.jamie
       state: not_home
   action:
   - data:
       message: Lakehouse Garage Door Opened
       data:
-         priority: 2
-         retry: 1800
-         expire: 3600
+        priority: 2
+        retry: 1800
+        expire: 3600
     service: notify.lakehouse_hassio
   mode: single
 - id: 34dt_disconnected
@@ -348,15 +348,55 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.thermostat_temperature
-    below: '48'
+    below: '47'
   condition: []
   action:
   - service: notify.lakehouse_hassio
     data:
       message: Lake house temperature dangerously low!
       data:
-         priority: 2
-         retry: 900
-         expire: 7200
-         sound: climb
+        priority: 2
+        retry: 900
+        expire: 7200
+        sound: climb
   mode: single
+- id: set_joe_home_state
+  alias: Set Joe Home State
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - event: update_home_state
+    event_data:
+      person: 'joe'
+      state:  'home'
+- id: set_joe_not_home_state
+  alias: Set Joe Not Home State
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - event: update_home_state
+    event_data:
+      person: 'joe'
+      state:  'not_home'
+- id: set_jamie_home_state
+  alias: Set Jamie Home State
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - event: update_home_state
+    event_data:
+      person: 'jamie'
+      state:  'home'
+- id: set_jamie_not_home_state
+  alias: Set Jamie Not Home State
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - event: update_home_state
+    event_data:
+      person: 'jamie'
+      state:  'not_home'

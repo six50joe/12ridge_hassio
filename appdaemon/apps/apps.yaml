@@ -11,3 +11,6 @@ archive:
 set_zwave_params:
   module: set_zwave_params
   class: SetDeviceParams
+home_tracker:
+  module: home_tracker
+  class: HomeTracker
