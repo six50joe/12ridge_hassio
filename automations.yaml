@@ -138,9 +138,9 @@
   description: ''
   trigger:
   - entity_id: person.joe
-    from: "on"
+    from: 'on'
     platform: state
-    to: "off"
+    to: 'off'
   condition: []
   action:
   - data:
@@ -153,9 +153,9 @@
   description: ''
   trigger:
   - entity_id: person.jamie
-    from: "on"
+    from: 'on'
     platform: state
-    to: "off"
+    to: 'off'
   condition: []
   action:
   - data:
@@ -168,9 +168,9 @@
   description: ''
   trigger:
   - entity_id: person.joe
-    from: "off"
+    from: 'off'
     platform: state
-    to: "on"
+    to: 'on'
   condition: []
   action:
   - data:
@@ -183,9 +183,9 @@
   description: ''
   trigger:
   - entity_id: person.jamie
-    from: "off"
+    from: 'off'
     platform: state
-    to: "on"
+    to: 'on'
   condition: []
   action:
   - data:
@@ -226,12 +226,16 @@
   condition:
   - condition: and
     conditions:
-    - condition: state
-      entity_id: person.joe
-      state: not_home
-    - condition: state
-      entity_id: person.jamie
-      state: not_home
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: person.joe_thomas
+        state: home
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: person.jamie_thomas
+        state: home
   action:
   - data:
       message: Lakehouse Front Door Opened
@@ -240,6 +244,7 @@
         retry: 1800
         expire: 3600
     service: notify.lakehouse_hassio
+  mode: single
 - id: garage_door_opened
   alias: Garage Door Opened
   description: ''
@@ -251,12 +256,16 @@
   condition:
   - condition: and
     conditions:
-    - condition: state
-      entity_id: person.joe
-      state: not_home
-    - condition: state
-      entity_id: person.jamie
-      state: not_home
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: person.joe_thomas
+        state: home
+    - condition: not
+      conditions:
+      - condition: state
+        entity_id: person.jamie_thomas
+        state: home
   action:
   - data:
       message: Lakehouse Garage Door Opened
@@ -368,8 +377,8 @@
   action:
   - event: update_home_state
     event_data:
-      person: 'joe'
-      state:  'home'
+      person: joe
+      state: home
 - id: set_joe_not_home_state
   alias: Set Joe Not Home State
   description: ''
@@ -378,8 +387,8 @@
   action:
   - event: update_home_state
     event_data:
-      person: 'joe'
-      state:  'not_home'
+      person: joe
+      state: not_home
 - id: set_jamie_home_state
   alias: Set Jamie Home State
   description: ''
@@ -388,8 +397,8 @@
   action:
   - event: update_home_state
     event_data:
-      person: 'jamie'
-      state:  'home'
+      person: jamie
+      state: home
 - id: set_jamie_not_home_state
   alias: Set Jamie Not Home State
   description: ''
@@ -398,5 +407,5 @@
   action:
   - event: update_home_state
     event_data:
-      person: 'jamie'
-      state:  'not_home'
+      person: jamie
+      state: not_home

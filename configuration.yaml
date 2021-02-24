@@ -28,8 +28,8 @@ owntracks:
   waypoints: true
   mqtt_topic: "owntracks/#"
 
-cabin: home
-    office: work
+#cabin: home
+#    office: work
 
 device_tracker:
   - platform: ping
