@@ -20,6 +20,17 @@ binary_sensor: !include binary_sensor.yaml
 homeassistant:
   customize: !include customize.yaml
 
+mqtt:
+  broker: 127.0.0.1
+
+owntracks:
+  max_gps_accuracy: 200
+  waypoints: true
+  mqtt_topic: "owntracks/#"
+
+cabin: home
+    office: work
+
 device_tracker:
   - platform: ping
     hosts:
@@ -31,6 +42,7 @@ logger:
   logs:
     homeassistant.components.yamaha: critical
     custom_components.my_integration: critical
+    homeassistant.components.mqtt: warning
 
 # Notifications
 notify:
