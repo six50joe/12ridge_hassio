@@ -28,8 +28,15 @@ owntracks:
   waypoints: true
   mqtt_topic: "owntracks/#"
 
-#cabin: home
-#    office: work
+owntracks:
+  max_gps_accuracy: 200
+  waypoints: false
+  mqtt_topic: "owntracks/#"
+  events_only: false
+  waypoint_whitelist:
+    - six50joe
+  region_mapping:
+    lake_house: home
 
 device_tracker:
   - platform: ping

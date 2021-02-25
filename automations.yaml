@@ -137,7 +137,7 @@
   alias: Joe Left Home
   description: ''
   trigger:
-  - entity_id: person.joe
+  - entity_id: person.joe_thomas
     from: 'on'
     platform: state
     to: 'off'
@@ -167,7 +167,7 @@
   alias: Joe Arrived Home
   description: ''
   trigger:
-  - entity_id: person.joe
+  - entity_id: person.joe_thomas
     from: 'off'
     platform: state
     to: 'on'
@@ -224,18 +224,14 @@
     platform: state
     to: 'on'
   condition:
-  - condition: and
-    conditions:
     - condition: not
       conditions:
-      - condition: state
-        entity_id: person.joe_thomas
-        state: home
-    - condition: not
-      conditions:
-      - condition: state
-        entity_id: person.jamie_thomas
-        state: home
+        - condition: state
+          entity_id: person.joe_thomas
+          state: home
+        - condition: state
+          entity_id: person.jamie
+          state: home
   action:
   - data:
       message: Lakehouse Front Door Opened
@@ -254,18 +250,14 @@
     from: 'off'
     to: 'on'
   condition:
-  - condition: and
-    conditions:
     - condition: not
       conditions:
-      - condition: state
-        entity_id: person.joe_thomas
-        state: home
-    - condition: not
-      conditions:
-      - condition: state
-        entity_id: person.jamie_thomas
-        state: home
+        - condition: state
+          entity_id: person.joe_thomas
+          state: home
+        - condition: state
+          entity_id: person.jamie
+          state: home
   action:
   - data:
       message: Lakehouse Garage Door Opened
