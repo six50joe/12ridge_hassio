@@ -10,7 +10,7 @@
       message: Lake House Hassio Rebooted
       data:
         priority: -1
-    service: notify.lakehouse_hassio
+    service: notify.lakehouse_hassio_joe
 - id: lakehouse_smoke
   alias: Smoke Detected
   description: ''
@@ -27,7 +27,7 @@
         priority: 2
         retry: 500
         expire: 7200
-    service: notify.lakehouse_hassio
+    service: notify.all
 - id: lakehouse_co
   alias: Carbon Monoxide Detected
   description: ''
@@ -44,7 +44,7 @@
         priority: 2
         retry: 500
         expire: 7200
-    service: notify.lakehouse_hassio
+    service: notify.all
 - id: lakehouse_flood
   alias: Water detected in basement
   description: ''
@@ -62,7 +62,7 @@
         retry: 900
         expire: 7200
         sound: mechanical
-    service: notify.lakehouse_hassio
+    service: notify.all
 - id: '1588362768033'
   alias: Propane Reading Old
   description: ''
@@ -147,7 +147,7 @@
       message: Joe Left Home
       data:
         priority: -1
-    service: notify.lakehouse_hassio
+    service: notify.lakehouse_hassio_jamie
 - id: jamie_left_home
   alias: Jamie Left Home
   description: ''
@@ -162,7 +162,7 @@
       message: Jamie Left Home
       data:
         priority: -1
-    service: notify.lakehouse_hassio
+    service: notify.lakehouse_hassio_joe
 - id: joe_arrived_home
   alias: Joe Arrived Home
   description: ''
@@ -177,7 +177,7 @@
       message: Joe Arrived Home
       data:
         priority: -1
-    service: notify.lakehouse_hassio
+    service: notify.lakehouse_hassio_jamie
 - id: jamie_arrived_home
   alias: Jamie Arrived Home
   description: ''
@@ -192,7 +192,7 @@
       message: Jamie Arrived Home
       data:
         priority: -1
-    service: notify.lakehouse_hassio
+    service: notify.lakehouse_hassio_joe
 - id: '1590326915142'
   alias: Front Door Event Test
   description: ''
@@ -205,7 +205,7 @@
       message: Front Door Event
       data:
         priority: -1
-    service: notify.lakehouse_hassio
+    service: notify.all
 - id: set_zwave_device_params
   alias: Set ZWave Device Params
   description: ''
@@ -226,12 +226,9 @@
   condition:
     - condition: not
       conditions:
-        - condition: state
-          entity_id: person.joe_thomas
-          state: home
-        - condition: state
-          entity_id: person.jamie
-          state: home
+        - condition: template
+          value_template: >-
+            {{ states('person.joe_thomas').lower()  == 'home' or states('person.jamie_thomas').lower() == 'home' }}
   action:
   - data:
       message: Lakehouse Front Door Opened
@@ -239,7 +236,7 @@
         priority: 2
         retry: 1800
         expire: 3600
-    service: notify.lakehouse_hassio
+    service: notify.all
   mode: single
 - id: garage_door_opened
   alias: Garage Door Opened
@@ -252,12 +249,9 @@
   condition:
     - condition: not
       conditions:
-        - condition: state
-          entity_id: person.joe_thomas
-          state: home
-        - condition: state
-          entity_id: person.jamie
-          state: home
+        - condition: template
+          value_template: >-
+            {{ states('person.joe_thomas').lower()  == 'home' or states('person.jamie_thomas').lower() == 'home' }}
   action:
   - data:
       message: Lakehouse Garage Door Opened
@@ -265,7 +259,7 @@
         priority: 2
         retry: 1800
         expire: 3600
-    service: notify.lakehouse_hassio
+    service: notify.all
   mode: single
 - id: 34dt_disconnected
   alias: Check Goldens Bridge Disconnected
@@ -279,7 +273,7 @@
   action:
   - data:
       message: Goldens Bridge had been reachable but is now not
-    service: notify.lakehouse_hassio
+    service: notify.lakehouse_hassio_joe
   mode: single
 - id: 34dt_reconnected
   alias: Check Goldens Reconnected
@@ -293,7 +287,7 @@
   action:
   - data:
       message: Goldens Bridge is now reachable
-    service: notify.lakehouse_hassio
+    service: notify.lakehouse_hassio_joe
   mode: single
 - id: '1600695831917'
   alias: Turn Track Lights On Full
@@ -352,7 +346,7 @@
     below: '47'
   condition: []
   action:
-  - service: notify.lakehouse_hassio
+  - service: notify.all
     data:
       message: Lake house temperature dangerously low!
       data:

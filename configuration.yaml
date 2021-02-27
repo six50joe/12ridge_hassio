@@ -28,16 +28,6 @@ owntracks:
   waypoints: true
   mqtt_topic: "owntracks/#"
 
-owntracks:
-  max_gps_accuracy: 200
-  waypoints: false
-  mqtt_topic: "owntracks/#"
-  events_only: false
-  waypoint_whitelist:
-    - six50joe
-  region_mapping:
-    lake_house: home
-
 device_tracker:
   - platform: ping
     hosts:
@@ -53,20 +43,20 @@ logger:
 
 # Notifications
 notify:
-  - name: Lakehouse Hassio
+  - name: lakehouse_hassio_joe
     platform: pushover
     api_key:  aycgcxvcscf63ydd2bwo6cktws863t
     user_key: utevcgmbad4mq263sto1k6sfw5bq45
+  - name: lakehouse_hassio_jamie
+    platform: pushover
+    api_key:  a36oaqmx6hpv8ds6tje5x2nfj16fz5
+    user_key: u9dikpjkyenayozh68ni42x8qbrv39
+  - name: all
+    platform: group
+    services:
+      - service: lakehouse_hassio_joe
+      - service: lakehouse_hassio_jamie
 
-device_tracker:
-  - platform: icloud3
-    username: !secret fmf_icloud
-    password: !secret fmf_icloud_pw
-    track_devices:
-      - six50joe_iphone > six50joe@icloud.com, JoeBadge2.jpg
-      - jamies_iphonex > jamiedylana@gmail.com, JamieBadge.jpg
-
-shopping_list:
 python_script:
 
 amcrest:
