@@ -105,7 +105,6 @@ class PropaneLevel(hass.Hass):
         self.get_propane_level(None, sensor)
         
     def get_propane_level(self, entity=None, data=None, arg1=None, arg2=None, arg3=None):
-
         self.read_propane_thresholds()
         
         retry = 0
