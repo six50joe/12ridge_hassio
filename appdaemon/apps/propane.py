@@ -24,7 +24,7 @@ class PropaneLevel(hass.Hass):
             self.listen_event(self.get_propane_level, "update_propane_level")
         else:
             self.listen_event(self.read_mimolite, "update_propane_level")
-        self.listen_state(self.mimolite_sensor_update, "sensor.mimolite_general")
+        self.listen_state(self.mimolite_sensor_update, "sensor.mimolite_general_purpose")
 
     def get_propane_sensor_reading(self):
         reading = 0
@@ -40,14 +40,18 @@ class PropaneLevel(hass.Hass):
             
     def read_mimolite(self, entity=None, data=None, kwargs=None):
         self.log("Setting MimoLite Relay Delay")
-        self.call_service("zwave/set_config_parameter", node_id=19, parameter=11, value=150)
+#        self.call_service("zwave_js/set_config_parameter", node_id='19', parameter='11', value='150')
+        self.call_service("zwave_js/set_config_parameter", device_id='f61ad85870bb394b844107e1f3a59e79', parameter=11, value=150)
         self.log("Turning On Relay")
-        self.turn_on("switch.mimolite_switch")
+        self.turn_on("switch.mimolite_current_value")
         self.log("Queueing Sensor Read")
-        self.call_service("zwave/refresh_node_value", node_id=19, value_id='72057594361692194')
-        # reading = int(float(self.get_state("sensor.mimolite_general", "state")))
-        # self.log("Reading: %d" % reading)
-        # return reading
+        #self.call_service("zwave_js.refresh_value", node_id=19, value_id='72057594361692194')
+        self.call_service("zwave_js/refresh_value", entity_id="sensor.mimolite_general_purpose")
+        reading = int(float(self.get_state("sensor.mimolite_general_purpose", "state")))
+        self.log("Turning Off Relay")
+        self.turn_off("switch.mimolite_current_value")
+        self.log("Reading: %d" % reading)
+        return reading
 
     def read_propane_thresholds(self):
         global propane_thresholds
@@ -98,8 +102,13 @@ class PropaneLevel(hass.Hass):
         self.call_service("notify/lakehouse_hassio_joe", message=alert)
             
     def mimolite_sensor_update(self, entity=None, data=None, arg1=None, arg2=None, arg3=None):
-        sensor = float(self.get_state("sensor.mimolite_general", "state"))
-        self.log("Reading received from mimolite: %f" % sensor)
+        sensor = float(self.get_state("sensor.mimolite_general_purpose", "state"))
+        if sensor < 100.0:
+            # self.log("Ignoring invalid read: %f" % sensor)
+            return
+        else:
+            self.log("Reading received from mimolite: %f" % sensor)
+
         updated = datetime.datetime.today().strftime('%m/%d/%Y  %H:%M:%S')
         self.call_service("variable/set_variable", variable='last_mimolite_update', value=updated)
         self.get_propane_level(None, sensor)
@@ -120,9 +129,9 @@ class PropaneLevel(hass.Hass):
             else: 
                 sensor = data
                 if sensor > 1.0 and sensor < 100.0:
-                    self.log("Low reading value %f, retrying" % sensor)
-                    time.sleep(30)
-                    self.read_mimolite()
+                    self.log("Low reading value %f, ignoring" % sensor)
+#                    time.sleep(30)
+#                    self.read_mimolite()
                     return
 
             self.log("Calculating pct for threshold: %f" % sensor)

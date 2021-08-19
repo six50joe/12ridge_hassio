@@ -10,17 +10,17 @@
     smoke_status:
       friendly_name: "Smoke Status"
       value_template: >-
-        {% if is_state("sensor.smoke_detector_alarm_level", "255") and is_state("sensor.smoke_detector_alarm_type", "1")%}
+        {% if is_state("sensor.smoke_detector_alarmlevel", "255") and is_state("sensor.smoke_detector_alarmtype", "1")%}
           smoke
-        {% elif is_state("sensor.smoke_detector_alarm_level", "255") and is_state("sensor.smoke_detector_alarm_type", "2")%}
+        {% elif is_state("sensor.smoke_detector_alarmlevel", "255") and is_state("sensor.smoke_detector_alarmtype", "2")%}
           co
         {% else %}
           idle
         {% endif %}
       icon_template: >-
-        {% if is_state("sensor.smoke_detector_alarm_level", "255") and is_state("sensor.smoke_detector_alarm_type", "1")%}
+        {% if is_state("sensor.smoke_detector_alarmlevel", "255") and is_state("sensor.smoke_detector_alarmtype", "1")%}
           mdi:fire
-        {% elif is_state("sensor.smoke_detector_alarm_level", "255") and is_state("sensor.smoke_detector_alarm_type", "2")%}
+        {% elif is_state("sensor.smoke_detector_alarmlevel", "255") and is_state("sensor.smoke_detector_alarmtype", "2")%}
           mdi:cloud-outline
         {% else %}
           mdi:smoke-detector
@@ -42,13 +42,13 @@
     garage_status:
       friendly_name: "Garage Status"
       value_template: >-
-        {% if is_state("binary_sensor.ecolink_garage_door_tilt_sensor_sensor", "off")%}
+        {% if is_state("binary_sensor.ecolink_garage_door_tilt_sensor_access_control_window_door_is_open", "off")%}
           closed
         {% else %}
           open
         {% endif %}
       icon_template: >-
-        {% if is_state("binary_sensor.ecolink_garage_door_tilt_sensor_sensor", "off")%}
+        {% if is_state("binary_sensor.ecolink_garage_door_tilt_sensor_access_control_window_door_is_open", "off")%}
           mdi:garage-variant
         {% else %}
           mdi:garage-open-variant
@@ -56,13 +56,13 @@
     flood_status:
       friendly_name: "Flood Status"
       value_template: >-
-        {% if is_state("binary_sensor.flood_sensor_general", "on")%}
+        {% if is_state("binary_sensor.flood_sensor_water_leak_state", "on")%}
           flood
         {% else %}
           dry
         {% endif %}
       icon_template: >-
-        {% if is_state("binary_sensor.flood_sensor_general", "on")%}
+        {% if is_state("binary_sensor.flood_sensor_water_leak_state", "on")%}
           mdi:waves
         {% else %}
           mdi:water-off

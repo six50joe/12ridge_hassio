@@ -74,7 +74,7 @@
       parameter: 11
       size: 1
       value: 100
-    service: zwave.set_config_parameter
+    service: zwave_js.set_config_parameter
   - device_id: 1376937c0ea042f5be036cefd84348bd
     domain: switch
     entity_id: switch.mimolite_switch
@@ -242,7 +242,7 @@
   alias: Garage Door Opened
   description: ''
   trigger:
-  - entity_id: binary_sensor.ecolink_garage_door_tilt_sensor_sensor
+  - entity_id: binary_sensor.ecolink_garage_door_tilt_sensor_access_control_window_door_is_open
     platform: state
     from: 'off'
     to: 'on'
