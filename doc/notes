@@ -48,3 +48,6 @@ MimoLite:
 2020-04-07 16:21:03.228 Detail, 
 2020-04-07 16:21:03.228 Info, Node017, Received Basic set from node 17: level=0.  Sending event notification.
 2020-04-07 16:21:03.228 Detail, Node017, Notification: NodeEvent
+
+
+----
