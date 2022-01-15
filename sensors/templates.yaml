@@ -10,18 +10,14 @@
     smoke_status:
       friendly_name: "Smoke Status"
       value_template: >-
-        {% if is_state("sensor.smoke_detector_alarmlevel", "255") and is_state("sensor.smoke_detector_alarmtype", "1")%}
+        {% if is_state("binary_sensor.smoke_alarm_smoke_detected", "on") %}
           smoke
-        {% elif is_state("sensor.smoke_detector_alarmlevel", "255") and is_state("sensor.smoke_detector_alarmtype", "2")%}
-          co
         {% else %}
           idle
         {% endif %}
       icon_template: >-
-        {% if is_state("sensor.smoke_detector_alarmlevel", "255") and is_state("sensor.smoke_detector_alarmtype", "1")%}
+        {% if is_state("binary_sensor.smoke_alarm_smoke_detected", "on") %}
           mdi:fire
-        {% elif is_state("sensor.smoke_detector_alarmlevel", "255") and is_state("sensor.smoke_detector_alarmtype", "2")%}
-          mdi:cloud-outline
         {% else %}
           mdi:smoke-detector
         {% endif %}
