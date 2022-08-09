@@ -114,16 +114,20 @@ light:
           data:
             entity_id: switch.outdoor_lamp_current_value
 
-variable:
+var:
   propane_percentage:
-    value: 1
-    name: PropanePercentage
+    initial_value: 1
+    unique_id: PropanePercentage
+    friendly_name: PropanePercentage
   prev_propane_percentage:
-    value: 1
-    name: PropanePercentage
+    initial_value: 1
+    unique_id: PropanePercentage
+    friendly_name: PropanePercentage
   propane_alert:
-    value: ""
-    name: PropaneAlert
+    initial_value: ""
+    unique_id: PropaneAlert
+    friendly_name: PropaneAlert
   last_mimolite_update:
-    value: ""
-    name: MimoSensor
+    initial_value: ""
+    unique_id: MimoSensor
+    friendly_name: MimoSensor

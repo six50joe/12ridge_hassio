@@ -94,7 +94,7 @@ class PropaneLevel(hass.Hass):
     def check_low_level(self, threshold, calc_pct, prev_pct_state):
         if calc_pct < threshold and prev_pct_state > threshold:
             status = "Propane level ( %d%% ) fell below %d%%" % (calc_pct, threshold)
-            #self.call_service("variable/set_variable", variable='propane_alert', value=status)
+            #self.call_service("var/set", entity_id='var.propane_alert', value=status)
             self.send_notification(status)
 
     def send_notification(self, alert):
@@ -110,7 +110,7 @@ class PropaneLevel(hass.Hass):
             self.log("Reading received from mimolite: %f" % sensor)
 
         updated = datetime.datetime.today().strftime('%m/%d/%Y  %H:%M:%S')
-        self.call_service("variable/set_variable", variable='last_mimolite_update', value=updated)
+        self.call_service("var/set", entity_id='var.last_mimolite_update', value=updated)
         self.get_propane_level(None, sensor)
         
     def get_propane_level(self, entity=None, data=None, arg1=None, arg2=None, arg3=None):
@@ -179,15 +179,15 @@ class PropaneLevel(hass.Hass):
 
         calc_pct = round(calc_pct, 1)
 
-        prev_pct_state = float(self.get_state("variable.propane_percentage", "state"))
-        self.call_service("variable/set_variable", variable='prev_propane_percentage', value=prev_pct_state)
-        self.call_service("variable/set_variable", variable='propane_percentage', value=calc_pct)
+        prev_pct_state = float(self.get_state("var.propane_percentage", "state"))
+        self.call_service("var/set", entity_id='var.prev_propane_percentage', value=prev_pct_state)
+        self.call_service("var/set", entity_id='var.propane_percentage', value=calc_pct)
         self.log("Propane level is %f (prev=%f)" % (calc_pct, prev_pct_state))
 
         if calc_pct - prev_pct_state > 10 and calc_pct > 50 and prev_pct_state > 5.0:
             status = "Propane has been refilled to (%d%%)" % (calc_pct)
             self.send_notification(status)
-            #self.call_service("variable/set_variable", variable='propane_alert', value=status)
+            #self.call_service("var/set", entity_id='propane_alert', value=status)
         
         self.check_low_level(50, calc_pct, prev_pct_state)
         self.check_low_level(40, calc_pct, prev_pct_state)

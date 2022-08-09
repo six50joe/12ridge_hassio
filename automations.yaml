@@ -224,11 +224,11 @@
     platform: state
     to: 'on'
   condition:
-    - condition: not
-      conditions:
-        - condition: template
-          value_template: >-
-            {{ states('person.joe_thomas').lower()  == 'home' or states('person.jamie_thomas').lower() == 'home' }}
+  - condition: not
+    conditions:
+    - condition: template
+      value_template: '{{ states(''person.joe_thomas'').lower()  == ''home'' or states(''person.jamie_thomas'').lower()
+        == ''home'' }}'
   action:
   - data:
       message: Lakehouse Front Door Opened
@@ -247,11 +247,11 @@
     from: 'off'
     to: 'on'
   condition:
-    - condition: not
-      conditions:
-        - condition: template
-          value_template: >-
-            {{ states('person.joe_thomas').lower()  == 'home' or states('person.jamie_thomas').lower() == 'home' }}
+  - condition: not
+    conditions:
+    - condition: template
+      value_template: '{{ states(''person.joe_thomas'').lower()  == ''home'' or states(''person.jamie_thomas'').lower()
+        == ''home'' }}'
   action:
   - data:
       message: Lakehouse Garage Door Opened
@@ -395,3 +395,41 @@
     event_data:
       person: jamie
       state: not_home
+- id: '1643290605854'
+  alias: Refresh CT100 Thermostat Air Temperature
+  description: Remove this automation when HA fixes CT100 integration
+  trigger:
+  - platform: time_pattern
+    minutes: /10
+  condition: []
+  action:
+  - service: zwave_js.refresh_value
+    data:
+      entity_id: sensor.z_wave_thermostat_air_temperature
+  mode: single
+- id: '1657994392567'
+  alias: TV On
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id:
+      - switch.tv
+      - switch.home_theater
+  mode: single
+- id: '1657994761588'
+  alias: TV Off
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - service: switch.turn_off
+    data: {}
+    target:
+      entity_id:
+      - switch.tv
+      - switch.home_theater
+  mode: single
