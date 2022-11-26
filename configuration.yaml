@@ -20,8 +20,8 @@ binary_sensor: !include binary_sensor.yaml
 homeassistant:
   customize: !include customize.yaml
 
-mqtt:
-  broker: 127.0.0.1
+#mqtt:  Depreated
+#  broker: 127.0.0.1
 
 owntracks:
   max_gps_accuracy: 200
@@ -41,21 +41,21 @@ logger:
     custom_components.my_integration: critical
     homeassistant.components.mqtt: warning
 
-# Notifications
-notify:
-  - name: lakehouse_hassio_joe
-    platform: pushover
-    api_key:  aycgcxvcscf63ydd2bwo6cktws863t
-    user_key: utevcgmbad4mq263sto1k6sfw5bq45
-  - name: lakehouse_hassio_jamie
-    platform: pushover
-    api_key:  a36oaqmx6hpv8ds6tje5x2nfj16fz5
-    user_key: u9dikpjkyenayozh68ni42x8qbrv39
-  - name: all
-    platform: group
-    services:
-      - service: lakehouse_hassio_joe
-      - service: lakehouse_hassio_jamie
+# Notifications  : Pushover now integration
+#notify:
+#  - name: lakehouse_hassio_joe
+  #   platform: pushover
+  #   api_key:  aycgcxvcscf63ydd2bwo6cktws863t
+  #   user_key: utevcgmbad4mq263sto1k6sfw5bq45
+  # - name: lakehouse_hassio_jamie
+  #   platform: pushover
+  #   api_key:  a36oaqmx6hpv8ds6tje5x2nfj16fz5
+  #   user_key: u9dikpjkyenayozh68ni42x8qbrv39
+  # - name: all
+  #   platform: group
+  #   services:
+  #     - service: lakehouse_hassio_joe
+  #     - service: lakehouse_hassio_jamie
 
 python_script:
 
@@ -113,6 +113,17 @@ light:
           service: switch.turn_off
           data:
             entity_id: switch.outdoor_lamp_current_value
+      front_flood_light:
+        friendly_name: "Front Flood Light"
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.outdoor_z_wave_plug_in_module_1_channel
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: switch.outdoor_z_wave_plug_in_module_1_channel
+
 
 var:
   propane_percentage:

@@ -6,11 +6,8 @@
     platform: homeassistant
   condition: []
   action:
-  - data:
-      message: Lake House Hassio Rebooted
-      data:
-        priority: -1
-    service: notify.lakehouse_hassio_joe
+  - service: notify.pushover
+    data: {}
 - id: lakehouse_smoke
   alias: Smoke Detected
   description: ''
