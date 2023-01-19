@@ -7,7 +7,13 @@
   condition: []
   action:
   - service: notify.pushover
-    data: {}
+    data:
+      message: Lake house Haassio Rebooted
+      target:
+        - six50joePhone
+        - JamieIPhone
+      data:
+        priority: 0
 - id: lakehouse_smoke
   alias: Smoke Detected
   description: ''
@@ -18,13 +24,16 @@
     to: smoke
   condition: []
   action:
-  - data:
+  - service: notify.pushover
+    data:
       message: Smoke detected at Lake House!
-      data:
+      target:
+        - six50joePhone
+        - JamieIPhone
+      Data:
         priority: 2
         retry: 500
         expire: 7200
-    service: notify.all
 - id: lakehouse_co
   alias: Carbon Monoxide Detected
   description: ''
@@ -35,13 +44,16 @@
     to: co
   condition: []
   action:
-  - data:
+  - service: notify.pushover
+    data:
       message: Carbon Monoxide detected at Lake House!
+      target:
+        - six50joePhone
+        - JamieIPhone
       data:
         priority: 2
         retry: 500
         expire: 7200
-    service: notify.all
 - id: lakehouse_flood
   alias: Water detected in basement
   description: ''
@@ -52,14 +64,17 @@
     to: flood
   condition: []
   action:
-  - data:
+  - service: notify.pushover
+    data:
       message: Lakehouse- Water detected on basement floor
+      target:
+        - six50joePhone
+        - JamieIPhone
       data:
         priority: 2
         retry: 900
         expire: 7200
         sound: mechanical
-    service: notify.all
 - id: '1588362768033'
   alias: Propane Reading Old
   description: ''
@@ -140,11 +155,14 @@
     to: 'off'
   condition: []
   action:
-  - data:
+  - service: notify.pushover
+    data:
       message: Joe Left Home
+      target:
+        - six50joePhone
+        - JamieIPhone
       data:
         priority: -1
-    service: notify.lakehouse_hassio_jamie
 - id: jamie_left_home
   alias: Jamie Left Home
   description: ''
@@ -155,11 +173,13 @@
     to: 'off'
   condition: []
   action:
-  - data:
+  - service: notify.pushover
+    data:
       message: Jamie Left Home
+      target:
+        - six50joePhone
       data:
         priority: -1
-    service: notify.lakehouse_hassio_joe
 - id: joe_arrived_home
   alias: Joe Arrived Home
   description: ''
@@ -170,11 +190,14 @@
     to: 'on'
   condition: []
   action:
-  - data:
+  - service: notify.pushover
+    data:
       message: Joe Arrived Home
+      target:
+        - six50joePhone
+        - JamieIPhone
       data:
         priority: -1
-    service: notify.lakehouse_hassio_jamie
 - id: jamie_arrived_home
   alias: Jamie Arrived Home
   description: ''
@@ -185,11 +208,13 @@
     to: 'on'
   condition: []
   action:
-  - data:
+  - service: notify.pushover
+    data:
       message: Jamie Arrived Home
+      target:
+        - six50joePhone
       data:
         priority: -1
-    service: notify.lakehouse_hassio_joe
 - id: '1590326915142'
   alias: Front Door Event Test
   description: ''
@@ -198,11 +223,13 @@
     platform: state
   condition: []
   action:
-  - data:
+  - service: notify.pushover
+    data:
       message: Front Door Event
+      target:
+        - six50joePhone
       data:
         priority: -1
-    service: notify.all
 - id: set_zwave_device_params
   alias: Set ZWave Device Params
   description: ''
@@ -227,13 +254,16 @@
       value_template: '{{ states(''person.joe_thomas'').lower()  == ''home'' or states(''person.jamie_thomas'').lower()
         == ''home'' }}'
   action:
-  - data:
-      message: Lakehouse Front Door Opened
+  - service: notify.pushover
+    data:
+      message: Lakehouse Front Door opened while away.
+      target:
+        - six50joePhone
+        - JamieIPhone
       data:
         priority: 2
         retry: 1800
         expire: 3600
-    service: notify.all
   mode: single
 - id: garage_door_opened
   alias: Garage Door Opened
@@ -250,13 +280,16 @@
       value_template: '{{ states(''person.joe_thomas'').lower()  == ''home'' or states(''person.jamie_thomas'').lower()
         == ''home'' }}'
   action:
-  - data:
-      message: Lakehouse Garage Door Opened
+  - service: notify.pushover
+    data:
+      message: Lakehouse Garage Door opened while away.
+      target:
+        - six50joePhone
+        - JamieIPhone
       data:
         priority: 2
         retry: 1800
         expire: 3600
-    service: notify.all
   mode: single
 - id: 34dt_disconnected
   alias: Check Goldens Bridge Disconnected
@@ -268,9 +301,11 @@
     to: Down
   condition: []
   action:
-  - data:
+  - service: notify.pushover
+    data:
       message: Goldens Bridge had been reachable but is now not
-    service: notify.lakehouse_hassio_joe
+      target:
+        - six50joePhone
   mode: single
 - id: 34dt_reconnected
   alias: Check Goldens Reconnected
@@ -282,9 +317,11 @@
     to: Up
   condition: []
   action:
-  - data:
+  - service: notify.pushover
+    data:
       message: Goldens Bridge is now reachable
-    service: notify.lakehouse_hassio_joe
+      target:
+        - six50joePhone
   mode: single
 - id: '1600695831917'
   alias: Turn Track Lights On Full
@@ -343,9 +380,12 @@
     below: '47'
   condition: []
   action:
-  - service: notify.all
+  - service: notify.pushover
     data:
       message: Lake house temperature dangerously low!
+      target:
+        - six50joePhone
+        - JamieIPhone
       data:
         priority: 2
         retry: 900
