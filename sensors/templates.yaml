@@ -1,22 +1,19 @@
-- platform: command_line
-  name: 34DT Hassio
-  command: /usr/bin/nc -z -w7 deerjoe.groks-the.info 8123 && echo Up || echo Down
-
 - platform: template
   sensors:
     #
     # Smoke and Carbon Monixide Detectors
     #
+    # Deprecated
     smoke_status:
       friendly_name: "Smoke Status"
       value_template: >-
-        {% if is_state("binary_sensor.smoke_alarm_smoke_detected", "on") %}
+        {% if is_state("binary_sensor.zcombo_g_smoke_co_alarm_smoke_detected", "Detected") %}
           smoke
         {% else %}
           idle
         {% endif %}
       icon_template: >-
-        {% if is_state("binary_sensor.smoke_alarm_smoke_detected", "on") %}
+        {% if is_state("binary_sensor.zcombo_g_smoke_co_alarm_smoke_detected", "Detected") %}
           mdi:fire
         {% else %}
           mdi:smoke-detector

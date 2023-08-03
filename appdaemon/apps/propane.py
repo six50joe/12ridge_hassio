@@ -99,7 +99,7 @@ class PropaneLevel(hass.Hass):
 
     def send_notification(self, alert):
         self.log("Alerting: %s" % alert)
-        self.call_service("notify/lakehouse_hassio_joe", message=alert)
+        self.call_service("notify/pushover", message=alert)
             
     def mimolite_sensor_update(self, entity=None, data=None, arg1=None, arg2=None, arg3=None):
         sensor = float(self.get_state("sensor.mimolite_general_purpose", "state"))

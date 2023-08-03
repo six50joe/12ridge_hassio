@@ -20,6 +20,14 @@ binary_sensor: !include binary_sensor.yaml
 homeassistant:
   customize: !include customize.yaml
 
+#
+# TCP sensor
+#
+command_line:
+  - sensor:
+      name: Lakehouse Hassio
+      command: /usr/bin/nc -z -w7 deerjoe.groks-the.info 8123 && echo Up || echo Down
+
 #mqtt:  Depreated
 #  broker: 127.0.0.1
 

@@ -11,17 +11,16 @@
       message: Lake house Haassio Rebooted
       target:
         - six50joePhone
-        - JamieIPhone
       data:
         priority: 0
 - id: lakehouse_smoke
   alias: Smoke Detected
   description: ''
   trigger:
-  - entity_id: sensor.smoke_status
-    from: idle
+  - entity_id: binary_sensor.zcombo_g_smoke_co_alarm_smoke_detected
+    from: 'off'
     platform: state
-    to: smoke
+    to: 'on'
   condition: []
   action:
   - service: notify.pushover
@@ -30,7 +29,7 @@
       target:
         - six50joePhone
         - JamieIPhone
-      Data:
+      data:
         priority: 2
         retry: 500
         expire: 7200
@@ -38,10 +37,10 @@
   alias: Carbon Monoxide Detected
   description: ''
   trigger:
-  - entity_id: sensor.smoke_status
-    from: idle
+  - entity_id: binary_sensor.zcombo_g_smoke_co_alarm_carbon_monoxide_detected
+    from: 'off'
     platform: state
-    to: co
+    to: 'on'
   condition: []
   action:
   - service: notify.pushover
