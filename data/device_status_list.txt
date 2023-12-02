@@ -1,0 +1,14 @@
+Garage Door Sensor,garage_door_sensor_lupd,sensor.z_wave_plus_gold_plated_reliability_garage_door_tilt_sensor_node_status,ENTRY
+Flood Sensor,flood_sensor_lupd,sensor.flood_sensor_air_temperature_2,ENTRY
+Front Door,front_door_lupd,binary_sensor.front_door_sensor,ENTRY
+Electricity Meter,electric_meter_lupd,sensor.home_energy_meter_electric_consumed_kwh,UTILITIES
+Life360 Joe,joe_lupd,person.joe_thomas,LOCATION
+Life360 Jamie,jamie_lupd,person.jamie_thomas,LOCATION
+Life360 Jemma,jemma_lupd,person.jemma_thomas,LOCATION
+Trusted Home,trusted_home_lupd,trusted_home,LOCATION
+Propane Level,propane_level_lupd,sensor.mimolite_general_purpose,UTILITIES
+Outside Temperature,outside_temp_lupd,sensor.outdoor_environment_air_temperature,SENSOR
+Thermostat,thermostat_lupd,sensor.z_wave_thermostat_air_temperature,THERMOSTAT
+Path Light,path_light_lupd,switch.outdoor_lamp_current_value,LIGHT
+Flood Light,flood_light_lupd,switch.outdoor_z_wave_plug_in_module_1_channel,LIGHT
+Smoke and CO2 Detector,smoke_co2_lupd,sensor.node_33_node_status,SMOKE

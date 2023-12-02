@@ -1,0 +1,56 @@
+garage_door_sensor_lupd:
+  initial_value: 0
+  unique_id: garage_door_sensor_lupd
+  friendly_name: Garage Door Sensor
+flood_sensor_lupd:
+  initial_value: 0
+  unique_id: flood_sensor_lupd
+  friendly_name: Flood Sensor
+front_door_lupd:
+  initial_value: 0
+  unique_id: front_door_lupd
+  friendly_name: Front Door
+electric_meter_lupd:
+  initial_value: 0
+  unique_id: electric_meter_lupd
+  friendly_name: Electricity Meter
+propane_level_lupd:
+  initial_value: 0
+  unique_id: propane_level_lupd
+  friendly_name: Propane Level
+joe_lupd:
+  initial_value: 0
+  unique_id: joe_lupd
+  friendly_name: Life360 Joe
+jamie_lupd:
+  initial_value: 0
+  unique_id: jamie_lupd
+  friendly_name: Life360 Jamie
+jemma_lupd:
+  initial_value: 0
+  unique_id: jemma_lupd
+  friendly_name: Life360 Jemma
+trusted_home_lupd:
+  initial_value: 0
+  unique_id: trusted_home_lupd
+  friendly_name: Trusted Home
+outside_temp_lupd:
+  initial_value: 0
+  unique_id: outside_temp_lupd
+  friendly_name: Outside Temperature
+thermostat_lupd:
+  initial_value: 0
+  unique_id: thermostat_lupd
+  friendly_name: Thermostat
+path_light_lupd:
+  initial_value: 0
+  unique_id: path_light_lupd
+  friendly_name: Path Light
+flood_light_lupd:
+  initial_value: 0
+  unique_id: flood_light_lupd
+  friendly_name: Flood Light
+smoke_co2_lupd:
+  initial_value: 0
+  unique_id: smoke_co2_lupd
+  friendly_name: Smoke and CO2 Detector

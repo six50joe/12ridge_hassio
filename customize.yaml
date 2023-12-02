@@ -3,4 +3,6 @@ person.joe_thomas:
   friendly_name: Joseph Thomas
 person.jamie_thomas:
   entity_picture: /local/JamieBadge.jpg
+person.jemma_thomas:
+  entity_picture: /local/JemmaBadge.jpg
 zone.home: {}

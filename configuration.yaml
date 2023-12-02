@@ -2,6 +2,14 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
+#lovelace:
+#
+# Add-On for lovelace
+#
+#  resources:
+#    - url: /local/config-template-card/config-template-card.js
+#      type: module
+
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 # http:
 #   base_url: example.duckdns.org:8123
@@ -16,6 +24,7 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 sensor: !include_dir_merge_list sensors
 binary_sensor: !include binary_sensor.yaml
+var: !include_dir_merge_named variables/
 
 homeassistant:
   customize: !include customize.yaml
@@ -132,21 +141,3 @@ light:
           data:
             entity_id: switch.outdoor_z_wave_plug_in_module_1_channel
 
-
-var:
-  propane_percentage:
-    initial_value: 1
-    unique_id: PropanePercentage
-    friendly_name: PropanePercentage
-  prev_propane_percentage:
-    initial_value: 1
-    unique_id: PropanePercentage
-    friendly_name: PropanePercentage
-  propane_alert:
-    initial_value: ""
-    unique_id: PropaneAlert
-    friendly_name: PropaneAlert
-  last_mimolite_update:
-    initial_value: ""
-    unique_id: MimoSensor
-    friendly_name: MimoSensor

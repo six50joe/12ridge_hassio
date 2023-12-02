@@ -166,7 +166,7 @@
   alias: Jamie Left Home
   description: ''
   trigger:
-  - entity_id: person.jamie
+  - entity_id: person.jamie_thomas
     from: 'on'
     platform: state
     to: 'off'
@@ -201,7 +201,7 @@
   alias: Jamie Arrived Home
   description: ''
   trigger:
-  - entity_id: person.jamie
+  - entity_id: person.jamie_thomas
     from: 'off'
     platform: state
     to: 'on'
@@ -250,8 +250,7 @@
   - condition: not
     conditions:
     - condition: template
-      value_template: '{{ states(''person.joe_thomas'').lower()  == ''home'' or states(''person.jamie_thomas'').lower()
-        == ''home'' }}'
+      value_template: '{{ states(''var.trusted_home'').lower()  == ''true'' }}'
   action:
   - service: notify.pushover
     data:
@@ -276,8 +275,7 @@
   - condition: not
     conditions:
     - condition: template
-      value_template: '{{ states(''person.joe_thomas'').lower()  == ''home'' or states(''person.jamie_thomas'').lower()
-        == ''home'' }}'
+      value_template: '{{ states(''var.trusted_home'').lower()  == ''true'' }}'
   action:
   - service: notify.pushover
     data:
@@ -468,4 +466,68 @@
       entity_id:
       - switch.tv
       - switch.home_theater
+  mode: single
+- id: set_trusted_home
+  alias: Set Trusted Home
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: person.joe_thomas
+  - platform: state
+    entity_id: person.jamie_thomas
+  - platform: time
+    at: 07:00:00
+  condition:
+  - condition: or
+    conditions:
+    - condition: template
+      value_template: '{{ states(''var.trusted_home'').lower()  == ''true'' }}'
+    - condition: time
+      after: 07:00:00
+      before: 09:00:00
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+  action:
+  - service: var.set
+    data:
+      entity_id:
+      - var.trusted_home
+      value: true
+  mode: single
+- id: set_not_trusted_home
+  alias: Set Not Trusted Home
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: person.joe_thomas
+  - platform: state
+    entity_id: person.jamie_thomas
+  - platform: time
+    at: 09:00:00
+  condition:
+  - condition: not
+    conditions:
+    - condition: or
+      conditions:
+      - condition: template
+        value_template: '{{ states(''var.trusted_home'').lower()  == ''true'' }}'
+      - condition: time
+        after: 07:00:00
+        before: 09:00:00
+        weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+  action:
+  - service: var.set
+    data:
+      entity_id:
+      - var.trusted_home
+      value: false
   mode: single

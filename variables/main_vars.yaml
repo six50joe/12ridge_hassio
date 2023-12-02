@@ -1,0 +1,22 @@
+trusted_home:
+  initial_value: xyz
+  unique_id: TrustedHome
+  friendly_name: TrustedHome
+propane_percentage:
+  initial_value: 1
+  unique_id: PropanePercentage
+  friendly_name: PropanePercentage
+prev_propane_percentage:
+  initial_value: 1
+  unique_id: PropanePercentage
+  friendly_name: PropanePercentage
+propane_alert:
+  initial_value: ""
+  unique_id: PropaneAlert
+  friendly_name: PropaneAlert
+last_mimolite_update:
+  initial_value: ""
+  unique_id: MimoSensor
+  friendly_name: MimoSensor
+  
+

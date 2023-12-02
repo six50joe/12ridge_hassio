@@ -1,0 +1,36 @@
+{% macro entity_responsive_color(var_entity_id) %}
+{% set var_upd_date = as_datetime(float(states(var_entity_id))) %}
+{% set days_elapsed =int( (now() - var_upd_date).days) %}
+{% if days_elapsed >= 30 %}
+ {% set color = "#5D6D7E" %}
+{% elif days_elapsed <= 1 %} 
+ {% set color = "#52BE80" %}
+{% elif days_elapsed <= 7 %} 
+ {% set color = "#F1C40F" %}
+{% else %} 
+ {% set color = "#E74C3C" %}
+{% endif %}
+{{ color }}
+{% endmacro %}
+
+{% macro entity_responsive_text_color(var_entity_id) %}
+{% set var_upd_date = as_datetime(float(states(var_entity_id))) %}
+{% set days_elapsed =int( (now() - var_upd_date).days) %}
+{% if days_elapsed >= 30 %}
+ {% set color = "#FFFFFF" %}
+{% elif days_elapsed <= 1 %} 
+ {% set color = "#FFFFFF" %}
+{% elif days_elapsed <= 7 %} 
+ {% set color = "#FFFFFF" %}
+{% else %} 
+ {% set color = "#FFFFFF" %}
+{% endif %}
+{{ color }}
+{% endmacro %}
+
+{% macro last_updated(var_entity_id) %}
+{% set var_upd_date = as_local(as_datetime(float(states(var_entity_id)))) %}
+{% set last_updated = var_upd_date.strftime('%Y-%m-%d %H:%M:%S %Z') %}
+{{ last_updated }}
+{% endmacro %}
+
