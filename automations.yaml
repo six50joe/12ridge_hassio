@@ -481,7 +481,8 @@
   - condition: or
     conditions:
     - condition: template
-      value_template: '{{ states(''var.trusted_home'').lower()  == ''true'' }}'
+      value_template: '{{ states(''person.joe_thomas'').lower()  == ''home'' or states(''person.jamie_thomas'').lower()
+        == ''home'' }}'
     - condition: time
       after: 07:00:00
       before: 09:00:00
@@ -514,7 +515,8 @@
     - condition: or
       conditions:
       - condition: template
-        value_template: '{{ states(''var.trusted_home'').lower()  == ''true'' }}'
+        value_template: '{{ states(''person.joe_thomas'').lower()  == ''home'' or states(''person.jamie_thomas'').lower()
+          == ''home'' }}'
       - condition: time
         after: 07:00:00
         before: 09:00:00
@@ -530,4 +532,3 @@
       entity_id:
       - var.trusted_home
       value: false
-  mode: single

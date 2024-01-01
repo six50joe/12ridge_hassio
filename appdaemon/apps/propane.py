@@ -23,8 +23,9 @@ class PropaneLevel(hass.Hass):
         if simulate:
             self.listen_event(self.get_propane_level, "update_propane_level")
         else:
-            self.listen_event(self.read_mimolite, "update_propane_level")
-        self.listen_state(self.mimolite_sensor_update, "sensor.mimolite_general_purpose")
+            self.listen_event(self.update_propane_level_req, "update_propane_level")
+        # Prevent infinite loop if signal continuously updates
+        # self.listen_state(self.mimolite_sensor_update, "sensor.mimolite_general_purpose")
 
     def get_propane_sensor_reading(self):
         reading = 0
@@ -37,6 +38,13 @@ class PropaneLevel(hass.Hass):
 
         self.log("Propane sensor reading (%d)" % reading)
         return reading
+
+    def update_propane_level_req(self, entity=None, data=None, arg1=None, arg2=None, arg3=None):
+        self.read_mimolite()
+        self.log("Pausing for sensor update")
+        time.sleep(9)
+        self.log("Taking reading now")
+        self.mimolite_sensor_update()
             
     def read_mimolite(self, entity=None, data=None, kwargs=None):
         self.log("Setting MimoLite Relay Delay")
@@ -114,6 +122,7 @@ class PropaneLevel(hass.Hass):
         self.get_propane_level(None, sensor)
         
     def get_propane_level(self, entity=None, data=None, arg1=None, arg2=None, arg3=None):
+        self.log("Get Propane Level triggered")
         self.read_propane_thresholds()
         retry = 0
 

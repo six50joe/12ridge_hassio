@@ -189,14 +189,14 @@ class DeviceResponsiveState(hass.Hass):
 
 
     def change_detected(self, entity=None, data=None, arg1=None, arg2=None, arg3=None):
-        self.log(f"Entity: {str(entity)}  Data: {data} Arg1: {arg1} Arg2: {arg2} Arg3: {arg3}")
+        # self.log(f"Entity: {str(entity)}  Data: {data} Arg1: {arg1} Arg2: {arg2} Arg3: {arg3}")
 
         dev_name = self.entity_id_to_device_name(entity)
 
-        if dev_name:
-            self.log(f"{dev_name} recevied an update")
-        else:
+        if not dev_name:
             self.log(f"Error: {entity} not registered")
+        #else;
+        #   self.log(f"{dev_name} recevied an update")
 
         var_name = f"var.{self.entity_id_to_var_name(entity)}"
 
