@@ -8,9 +8,9 @@
   action:
   - service: notify.pushover
     data:
-      message: Lake house Haassio Rebooted
+      message: '{{ states(''var.home_name'') }} Rebooted'
       target:
-        - six50joePhone
+      - six50joePhone
       data:
         priority: 0
 - id: lakehouse_smoke
@@ -27,8 +27,8 @@
     data:
       message: Smoke detected at Lake House!
       target:
-        - six50joePhone
-        - JamieIPhone
+      - six50joePhone
+      - JamieIPhone
       data:
         priority: 2
         retry: 500
@@ -47,8 +47,8 @@
     data:
       message: Carbon Monoxide detected at Lake House!
       target:
-        - six50joePhone
-        - JamieIPhone
+      - six50joePhone
+      - JamieIPhone
       data:
         priority: 2
         retry: 500
@@ -67,8 +67,8 @@
     data:
       message: Lakehouse- Water detected on basement floor
       target:
-        - six50joePhone
-        - JamieIPhone
+      - six50joePhone
+      - JamieIPhone
       data:
         priority: 2
         retry: 900
@@ -158,8 +158,8 @@
     data:
       message: Joe Left Home
       target:
-        - six50joePhone
-        - JamieIPhone
+      - six50joePhone
+      - JamieIPhone
       data:
         priority: -1
 - id: jamie_left_home
@@ -176,7 +176,7 @@
     data:
       message: Jamie Left Home
       target:
-        - six50joePhone
+      - six50joePhone
       data:
         priority: -1
 - id: joe_arrived_home
@@ -193,8 +193,8 @@
     data:
       message: Joe Arrived Home
       target:
-        - six50joePhone
-        - JamieIPhone
+      - six50joePhone
+      - JamieIPhone
       data:
         priority: -1
 - id: jamie_arrived_home
@@ -211,7 +211,7 @@
     data:
       message: Jamie Arrived Home
       target:
-        - six50joePhone
+      - six50joePhone
       data:
         priority: -1
 - id: '1590326915142'
@@ -226,7 +226,7 @@
     data:
       message: Front Door Event
       target:
-        - six50joePhone
+      - six50joePhone
       data:
         priority: -1
 - id: set_zwave_device_params
@@ -251,13 +251,16 @@
     conditions:
     - condition: template
       value_template: '{{ states(''var.trusted_home'').lower()  == ''true'' }}'
+    - condition: state
+      entity_id: var.disable_notifications
+    state: 'False'
   action:
   - service: notify.pushover
     data:
       message: Lakehouse Front Door opened while away.
       target:
-        - six50joePhone
-        - JamieIPhone
+      - six50joePhone
+      - JamieIPhone
       data:
         priority: 2
         retry: 1800
@@ -276,13 +279,16 @@
     conditions:
     - condition: template
       value_template: '{{ states(''var.trusted_home'').lower()  == ''true'' }}'
+    - condition: state
+      entity_id: var.disable_notifications
+    state: 'False'
   action:
   - service: notify.pushover
     data:
       message: Lakehouse Garage Door opened while away.
       target:
-        - six50joePhone
-        - JamieIPhone
+      - six50joePhone
+      - JamieIPhone
       data:
         priority: 2
         retry: 1800
@@ -302,7 +308,7 @@
     data:
       message: Goldens Bridge had been reachable but is now not
       target:
-        - six50joePhone
+      - six50joePhone
   mode: single
 - id: 34dt_reconnected
   alias: Check Goldens Reconnected
@@ -318,7 +324,7 @@
     data:
       message: Goldens Bridge is now reachable
       target:
-        - six50joePhone
+      - six50joePhone
   mode: single
 - id: '1600695831917'
   alias: Turn Track Lights On Full
@@ -381,8 +387,8 @@
     data:
       message: Lake house temperature dangerously low!
       target:
-        - six50joePhone
-        - JamieIPhone
+      - six50joePhone
+      - JamieIPhone
       data:
         priority: 2
         retry: 900
@@ -515,8 +521,8 @@
     - condition: or
       conditions:
       - condition: template
-        value_template: '{{ states(''person.joe_thomas'').lower()  == ''home'' or states(''person.jamie_thomas'').lower()
-          == ''home'' }}'
+        value_template: '{{ states(''person.joe_thomas'').lower()  == ''home'' or
+          states(''person.jamie_thomas'').lower() == ''home'' }}'
       - condition: time
         after: 07:00:00
         before: 09:00:00
@@ -532,3 +538,47 @@
       entity_id:
       - var.trusted_home
       value: false
+- id: disable_all_notifications
+  alias: disable_all_notifications
+  description: Disable all HA notifications
+  trigger: []
+  condition: []
+  action:
+  - service: var.set
+    data:
+      entity_id: var.disable_notifications
+      value: true
+  mode: single
+- id: enable_all_notifications
+  alias: enable_all_notifications
+  description: Disable all HA notifications
+  trigger: []
+  condition: []
+  action:
+  - service: var.set
+    data:
+      entity_id: var.disable_notifications
+      value: false
+  mode: single
+- id: '1704660295155'
+  alias: resume_notifications
+  description: Allow pushover notifications
+  trigger: []
+  condition: []
+  action:
+  - service: var.set
+    data:
+      entity_id: var.disable_notifications
+      value: false
+  mode: single
+- id: '1704660359248'
+  alias: stop_notifications
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - service: var.set
+    data:
+      entity_id: var.disable_notifications
+      value: true
+  mode: single

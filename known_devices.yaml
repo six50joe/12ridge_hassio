@@ -12,3 +12,24 @@ override_jamie:
   icon:
   picture:
   track: true
+
+joe_iphone_15:
+  name: joe_iphone_15
+  mac:
+  icon:
+  picture:
+  track: true
+
+jamie_iphone_13:
+  name: jamie_iphone_13
+  mac:
+  icon:
+  picture:
+  track: true
+
+jemma_iphone_xs:
+  name: jemma_iphone_xs
+  mac:
+  icon:
+  picture:
+  track: true

@@ -30,6 +30,21 @@ homeassistant:
   customize: !include customize.yaml
 
 #
+# Device Tracking
+#
+device_tracker:
+   - platform: traccar
+     host: deerjoe.groks-the.info
+     port: 8082
+     username: six50joe@gmail.com
+     password: tuneless-bone-mash
+     monitored_conditions: ['all_events']
+     ssl: false
+     verify_ssl: false
+     new_device_defaults:
+       track_new_devices: true
+
+#
 # TCP sensor
 #
 command_line:
@@ -44,12 +59,6 @@ owntracks:
   max_gps_accuracy: 200
   waypoints: true
   mqtt_topic: "owntracks/#"
-
-device_tracker:
-  - platform: ping
-    hosts:
-      jamie_iphonex: 172.16.0.71
-      joe_iphonexsmax: 172.16.0.70
 
 logger:
   default: info

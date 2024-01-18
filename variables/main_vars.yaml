@@ -1,7 +1,15 @@
+home_name:
+  initial_value: 12Ridgewood
+  unique_id: HomeName
+  friendly_name: HomeName
 trusted_home:
   initial_value: xyz
   unique_id: TrustedHome
   friendly_name: TrustedHome
+disable_notifications:
+  initial_value: false
+  unique_id: DisableNotifications
+  friendly_name: Disable Notifications
 propane_percentage:
   initial_value: 1
   unique_id: PropanePercentage
