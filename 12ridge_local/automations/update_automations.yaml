@@ -1,0 +1,70 @@
+- id: propane_reading_old
+  alias: Propane Reading Old
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - data:
+      node_id: 19
+      parameter: 11
+      size: 1
+      value: 100
+    service: zwave_js.set_config_parameter
+  - device_id: 1376937c0ea042f5be036cefd84348bd
+    domain: switch
+    entity_id: switch.mimolite_switch
+    type: turn_on
+  - data_template:
+      node_id: 19
+      value_id: '72057594361692194'
+    service: zwave.refresh_node_value
+  - delay: '2'
+  - data_template:
+      node_id: 19
+      value_id: '72057594361692194'
+    service: zwave.refresh_node_value
+  - data:
+      name: Joe
+    service: python_script.hello_world
+- id: zwave_refresh_test
+  alias: ZWRefreshTest
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - service: zwave.refresh_node_value
+    data_template:
+      node_id: 19
+      value_id: '72057594361692194'
+- id: read_propane_level
+  alias: Read Propane Level
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - event: update_propane_level
+    event_data:
+      state: 'on'
+- id: daily_propane_level_update
+  alias: Daily Propane Level Update
+  description: ''
+  trigger:
+  - event: sunrise
+    platform: sun
+  condition: []
+  action:
+  - event: update_propane_level
+    event_data:
+      state: 'on'
+  mode: single
+- id: archive_logs
+  alias: Create an archive tar file of current logs
+  description: ''
+  trigger:
+  - event: sunrise
+    platform: sun
+  condition: []
+  action:
+  - event: create_archive
+    event_data:
+      state: 'on'

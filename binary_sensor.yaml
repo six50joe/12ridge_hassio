@@ -1,7 +1,0 @@
-# GB ping
-- platform: ping
-  host: deerjoe.groks-the.info
-  name: "Goldens Bridge"
-- platform: ping
-  host: 192.168.1.98
-  name: "Neg test"

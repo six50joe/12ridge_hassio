@@ -14,20 +14,42 @@ default_config:
 # http:
 #   base_url: example.duckdns.org:8123
 
-# Text to speech
-tts:
-  - platform: google_translate
-
-group: !include groups.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
-scene: !include scenes.yaml
-sensor: !include_dir_merge_list sensors
-binary_sensor: !include binary_sensor.yaml
-var: !include_dir_merge_named variables/
-
 homeassistant:
   customize: !include customize.yaml
+  packages: !include_dir_merge_named ha_homes_common/config
+
+#
+# Logging Levels
+#
+logger:
+  default: info
+  logs:
+    # log level for HA core
+    homeassistant.core: info
+
+#
+# Other home
+#
+command_line:
+  - sensor:
+      name: 34DT Hassio
+      command: /usr/bin/nc -z -w7 deerjoe.groks-the.info 8123 && echo Up || echo Down
+
+# All HA Variables
+var: !include_dir_merge_named 12ridge_local/variables/
+
+# Automations I create in the UI
+automation: !include automations.yaml
+
+# Sensors- Monitoring entities
+sensor: !include_dir_merge_list 12ridge_local/sensors
+
+# TV Switch and other manually created ones
+switch: !include 12ridge_local/switches.yaml
+
+# House lighting 
+light: !include 12ridge_local/lights.yaml
+
 
 #
 # Device Tracking
@@ -44,109 +66,8 @@ device_tracker:
      new_device_defaults:
        track_new_devices: true
 
-#
-# TCP sensor
-#
-command_line:
-  - sensor:
-      name: Lakehouse Hassio
-      command: /usr/bin/nc -z -w7 deerjoe.groks-the.info 8123 && echo Up || echo Down
-
-#mqtt:  Depreated
-#  broker: 127.0.0.1
-
-owntracks:
-  max_gps_accuracy: 200
-  waypoints: true
-  mqtt_topic: "owntracks/#"
-
-logger:
-  default: info
-  logs:
-    homeassistant.components.yamaha: critical
-    custom_components.my_integration: critical
-    homeassistant.components.mqtt: warning
-
-# Notifications  : Pushover now integration
-#notify:
-#  - name: lakehouse_hassio_joe
-  #   platform: pushover
-  #   api_key:  aycgcxvcscf63ydd2bwo6cktws863t
-  #   user_key: utevcgmbad4mq263sto1k6sfw5bq45
-  # - name: lakehouse_hassio_jamie
-  #   platform: pushover
-  #   api_key:  a36oaqmx6hpv8ds6tje5x2nfj16fz5
-  #   user_key: u9dikpjkyenayozh68ni42x8qbrv39
-  # - name: all
-  #   platform: group
-  #   services:
-  #     - service: lakehouse_hassio_joe
-  #     - service: lakehouse_hassio_jamie
-
-python_script:
-
-amcrest:
-  - host: 172.16.1.50
-    username: six50joe
-    password: unbelief-ramp-best
-    name: Living Room
-
-  - host: 172.16.1.51
-    username: six50joe
-    password: unbelief-ramp-best
-    name: Driveway
-
-  - host: 172.16.1.52
-    username: six50joe
-    password: unbelief-ramp-best
-    name: Upstairs Bedroom
-
-camera:
-  - platform: amcrest
-
-switch:
-  - platform: broadlink
-    mac: 'c8:f7:42:83:32:5f'
-    switches:
-      - name: TV
-        command_on: JgByAAABIpMUERITEzcTERMSExITEhEUEzYTNhITFDYTNhM2EjgSNxQREhMTFw03FBETEhMSERQSNxM2EjgRFBM2EzYSOBI3EwAFHwABJ0oTAAxPAAEnShLyCgALVAABJ0oTAAxPAAEoSBQADFEAAShJEwANBQAAAAA=
-        command_off: JgByAAABIpMUERITEzcTERMSExITEhEUEzYTNhITFDYTNhM2EjgSNxQREhMTFw03FBETEhMSERQSNxM2EjgRFBM2EzYSOBI3EwAFHwABJ0oTAAxPAAEnShLyCgALVAABJ0oTAAxPAAEoSBQADFEAAShJEwANBQAAAAA=
-#        channel_up: JgBMABITFQ8VNBYPEhQSEhMSEhIWNBM3FQ8VNBY0EzcVNBI4ERQUEBITEhIWDxITFBEVEBI3EjcTNxYzFjQUNhU0EjcSAAUgAAEnShIADQUAAAAAAAAAAAAA
-#        channel_down: JgBQAAABKJESFBQQFTQVEBITFRASExUPFjMUNhQRFTQVNRM3FDUSNxI4EhMUEBQREhIUERMTEhIUERI3EjgTNhQ1FDYUNhI3EgAFIAABJ0oSAA0FAAAAAAAA
-#        volume_up: JgBQAAABJJISExMRFDYVEBETExITEhISFTUTNxQQFTUUNRM3EzYSOBITEzYUEBUQEhMUERMSFBAVNRMSETgVNBU1EzcUNRI3EgAFIAABJ0sSAA0FAAAAAAAA
-#        volume_down: JgBQAAABIZQUERISFDYTEhMSERMUERITEzYTNxISFDYTNxI3EjcSOBM2FDUUERMSExIUERISFBETEhMSEzYUNhM2EzcSNxI3FAAFHwABJksSAA0FAAAAAAAA
-#        input_cycle: JgBYAAABIpQTEhETFDYTERQREhMUERITEzYTNxETFDYTNhM3EjcSNxQ2FBESEhQ2ExITEhETFBETEhM2EjgSExM2FDYROBI3EwAFIAABKEkTAAxPAAEmSxIADQUAAAAAAAAAAAAAAAAAAA==
-#        mute: JgBYAAABIpQTEhETFDYTERQREhMUERITEzYTNxETFDYTNhM3EjcSNxQ2FBESEhQ2ExITEhETFBETEhM2EjgSExM2FDYROBI3EwAFIAABKEkTAAxPAAEmSxIADQUAAAAAAAAAAAAAAAAAAA==
-      - name: "home theater"
-        command_on: JgBYAAABIpQUERM3EzgTNRU3EzcTOBMREzgSEhMSExITEhMSExISOBMSEjgTNxQ2EzgTNxM3ExITNxMSExITEhISExITEhM3FAAFIQABJ0oUAAxbAAEoShQADQUAAAAAAAAAAAAAAAAAAA==
-        command_off: JgBoAAABIpUTEhI4EjgTNxM3EzcTOBMSEjgTEhISExITEhMSExITNxM3EzcTOBI4EzcTNxQ3ExETEhMSExITEhMSEhITEhM3EwAFIAABKUoUAAxcAAEnShQADFwAASdKFAAMXAABJ0oUAA0FAAAAAAAAAAAAAAAAAAA=
-#        "volume_up": "JgBQAAABJpQUERM3FBETNxQ2FDYTOBMREzgTEhI4ExITERMSExITNxQREzcTEhM3EzgTEhISExITNxQREzcTEhMSEzcUNxM3EwAFJQABJEoTAA0FAAAAAAAA"
-#        "volume_down": "JgBYAAABJ5IWERM3FBETORE4EzcTNxQREzcUERM3ExITEhMSEhMSOBM3FDYUERM3FDYTEhMSExITEhMSEjgTEhITEjgTNxM3EwAFIQABKEoTAAxdAAEnShMADQUAAAAAAAAAAAAAAAAAAA=="
-#        "mute": "JgBcAAABIpQUERM3ExITNxM4EjgUNhMSEzcTEhM3FBETEhMSExITNxMSExISOBM3EzcTEhMSExITNxM3FBETEhMSEzcUNBU3EwAFIQABKEoUAAm2CwACmgABKUoTAA0FAAAAAAAAAAAAAA=="
+# House cameras
+amcrest: !include 12ridge_local/cameras.yaml
 
 shopping_list:
-
-light:
-  - platform: template
-    lights:
-      outside_light:
-        friendly_name: "Path Lights"
-        turn_on:
-          service: switch.turn_on
-          data:
-            entity_id: switch.outdoor_lamp_current_value
-        turn_off:
-          service: switch.turn_off
-          data:
-            entity_id: switch.outdoor_lamp_current_value
-      front_flood_light:
-        friendly_name: "Front Flood Light"
-        turn_on:
-          service: switch.turn_on
-          data:
-            entity_id: switch.outdoor_z_wave_plug_in_module_1_channel
-        turn_off:
-          service: switch.turn_off
-          data:
-            entity_id: switch.outdoor_z_wave_plug_in_module_1_channel
 

@@ -1,0 +1,14 @@
+  - host: 172.16.1.50
+    username: six50joe
+    password: unbelief-ramp-best
+    name: Living Room
+
+  - host: 172.16.1.51
+    username: six50joe
+    password: unbelief-ramp-best
+    name: Driveway
+
+  - host: 172.16.1.52
+    username: six50joe
+    password: unbelief-ramp-best
+    name: Upstairs Bedroom

@@ -1,0 +1,4 @@
+resources:
+  - url: /local/config-template-card.js
+    type: module
+    

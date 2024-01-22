@@ -1,0 +1,278 @@
+type: vertical-stack
+cards:
+  - type: custom:config-template-card
+    entities:
+      zone.home:
+    card:
+      type: markdown
+      content: Doors and Windows
+      card_mod:
+        style: |
+         ha-card {background-color:  #000000 ;}
+         ha-card {color:  #FFFFFF ;}
+  - type: horizontal-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:config-template-card
+            entities:
+              - sensor.z_wave_plus_gold_plated_reliability_garage_door_tilt_sensor_node_status
+            card:
+              type: markdown
+              content: |
+                  Last updated at {% from 'device_updated_days.jinja' import last_updated %} {{ last_updated('var.garage_door_sensor_lupd') }}
+              title: Garage Door Sensor
+              card_mod:
+                style: |
+                  {% from 'device_updated_days.jinja' import entity_responsive_color %}
+                   ha-card {background-color: {{ entity_responsive_color('var.garage_door_sensor_lupd') }};}
+      - type: vertical-stack
+        cards:
+          - type: custom:config-template-card
+            entities:
+              - sensor.flood_sensor_air_temperature_2
+            card:
+              type: markdown
+              content: |
+                  Last updated at {% from 'device_updated_days.jinja' import last_updated %} {{ last_updated('var.flood_sensor_lupd') }}
+              title: Flood Sensor
+              card_mod:
+                style: |
+                  {% from 'device_updated_days.jinja' import entity_responsive_color %}
+                   ha-card {background-color: {{ entity_responsive_color('var.flood_sensor_lupd') }};}
+      - type: vertical-stack
+        cards:
+          - type: custom:config-template-card
+            entities:
+              - binary_sensor.front_door_sensor
+            card:
+              type: markdown
+              content: |
+                  Last updated at {% from 'device_updated_days.jinja' import last_updated %} {{ last_updated('var.front_door_lupd') }}
+              title: Front Door
+              card_mod:
+                style: |
+                  {% from 'device_updated_days.jinja' import entity_responsive_color %}
+                   ha-card {background-color: {{ entity_responsive_color('var.front_door_lupd') }};}
+  - type: custom:config-template-card
+    entities:
+      zone.home:
+    card:
+      type: markdown
+      content: Utilities
+      card_mod:
+        style: |
+         ha-card {background-color:  #000000 ;}
+         ha-card {color:  #FFFFFF ;}
+  - type: horizontal-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:config-template-card
+            entities:
+              - sensor.home_energy_meter_electric_consumed_kwh
+            card:
+              type: markdown
+              content: |
+                  Last updated at {% from 'device_updated_days.jinja' import last_updated %} {{ last_updated('var.electric_meter_lupd') }}
+              title: Electricity Meter
+              card_mod:
+                style: |
+                  {% from 'device_updated_days.jinja' import entity_responsive_color %}
+                   ha-card {background-color: {{ entity_responsive_color('var.electric_meter_lupd') }};}
+      - type: vertical-stack
+        cards:
+          - type: custom:config-template-card
+            entities:
+              - sensor.mimolite_general_purpose
+            card:
+              type: markdown
+              content: |
+                  Last updated at {% from 'device_updated_days.jinja' import last_updated %} {{ last_updated('var.propane_level_lupd') }}
+              title: Propane Level
+              card_mod:
+                style: |
+                  {% from 'device_updated_days.jinja' import entity_responsive_color %}
+                   ha-card {background-color: {{ entity_responsive_color('var.propane_level_lupd') }};}
+  - type: custom:config-template-card
+    entities:
+      zone.home:
+    card:
+      type: markdown
+      content: People and Item Locations
+      card_mod:
+        style: |
+         ha-card {background-color:  #000000 ;}
+         ha-card {color:  #FFFFFF ;}
+  - type: horizontal-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:config-template-card
+            entities:
+              - person.joe_thomas
+            card:
+              type: markdown
+              content: |
+                  Last updated at {% from 'device_updated_days.jinja' import last_updated %} {{ last_updated('var.joe_lupd') }}
+              title: Life360 Joe
+              card_mod:
+                style: |
+                  {% from 'device_updated_days.jinja' import entity_responsive_color %}
+                   ha-card {background-color: {{ entity_responsive_color('var.joe_lupd') }};}
+          - type: custom:config-template-card
+            entities:
+              - person.jamie_thomas
+            card:
+              type: markdown
+              content: |
+                  Last updated at {% from 'device_updated_days.jinja' import last_updated %} {{ last_updated('var.jamie_lupd') }}
+              title: Life360 Jamie
+              card_mod:
+                style: |
+                  {% from 'device_updated_days.jinja' import entity_responsive_color %}
+                   ha-card {background-color: {{ entity_responsive_color('var.jamie_lupd') }};}
+      - type: vertical-stack
+        cards:
+          - type: custom:config-template-card
+            entities:
+              - person.jemma_thomas
+            card:
+              type: markdown
+              content: |
+                  Last updated at {% from 'device_updated_days.jinja' import last_updated %} {{ last_updated('var.jemma_lupd') }}
+              title: Life360 Jemma
+              card_mod:
+                style: |
+                  {% from 'device_updated_days.jinja' import entity_responsive_color %}
+                   ha-card {background-color: {{ entity_responsive_color('var.jemma_lupd') }};}
+          - type: custom:config-template-card
+            entities:
+              - trusted_home
+            card:
+              type: markdown
+              content: |
+                  Last updated at {% from 'device_updated_days.jinja' import last_updated %} {{ last_updated('var.trusted_home_lupd') }}
+              title: Trusted Home
+              card_mod:
+                style: |
+                  {% from 'device_updated_days.jinja' import entity_responsive_color %}
+                   ha-card {background-color: {{ entity_responsive_color('var.trusted_home_lupd') }};}
+  - type: custom:config-template-card
+    entities:
+      zone.home:
+    card:
+      type: markdown
+      content: Temperature, light, etc.
+      card_mod:
+        style: |
+         ha-card {background-color:  #000000 ;}
+         ha-card {color:  #FFFFFF ;}
+  - type: horizontal-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:config-template-card
+            entities:
+              - sensor.outdoor_environment_air_temperature
+            card:
+              type: markdown
+              content: |
+                  Last updated at {% from 'device_updated_days.jinja' import last_updated %} {{ last_updated('var.outside_temp_lupd') }}
+              title: Outside Temperature
+              card_mod:
+                style: |
+                  {% from 'device_updated_days.jinja' import entity_responsive_color %}
+                   ha-card {background-color: {{ entity_responsive_color('var.outside_temp_lupd') }};}
+  - type: custom:config-template-card
+    entities:
+      zone.home:
+    card:
+      type: markdown
+      content: Thermostats
+      card_mod:
+        style: |
+         ha-card {background-color:  #000000 ;}
+         ha-card {color:  #FFFFFF ;}
+  - type: horizontal-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:config-template-card
+            entities:
+              - sensor.z_wave_thermostat_air_temperature
+            card:
+              type: markdown
+              content: |
+                  Last updated at {% from 'device_updated_days.jinja' import last_updated %} {{ last_updated('var.thermostat_lupd') }}
+              title: Thermostat
+              card_mod:
+                style: |
+                  {% from 'device_updated_days.jinja' import entity_responsive_color %}
+                   ha-card {background-color: {{ entity_responsive_color('var.thermostat_lupd') }};}
+  - type: custom:config-template-card
+    entities:
+      zone.home:
+    card:
+      type: markdown
+      content: Lights
+      card_mod:
+        style: |
+         ha-card {background-color:  #000000 ;}
+         ha-card {color:  #FFFFFF ;}
+  - type: horizontal-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:config-template-card
+            entities:
+              - switch.outdoor_lamp_current_value
+            card:
+              type: markdown
+              content: |
+                  Last updated at {% from 'device_updated_days.jinja' import last_updated %} {{ last_updated('var.path_light_lupd') }}
+              title: Path Light
+              card_mod:
+                style: |
+                  {% from 'device_updated_days.jinja' import entity_responsive_color %}
+                   ha-card {background-color: {{ entity_responsive_color('var.path_light_lupd') }};}
+      - type: vertical-stack
+        cards:
+          - type: custom:config-template-card
+            entities:
+              - switch.outdoor_z_wave_plug_in_module_1_channel
+            card:
+              type: markdown
+              content: |
+                  Last updated at {% from 'device_updated_days.jinja' import last_updated %} {{ last_updated('var.flood_light_lupd') }}
+              title: Flood Light
+              card_mod:
+                style: |
+                  {% from 'device_updated_days.jinja' import entity_responsive_color %}
+                   ha-card {background-color: {{ entity_responsive_color('var.flood_light_lupd') }};}
+  - type: custom:config-template-card
+    entities:
+      zone.home:
+    card:
+      type: markdown
+      content: Smoke and CO2 Detectors
+      card_mod:
+        style: |
+         ha-card {background-color:  #000000 ;}
+         ha-card {color:  #FFFFFF ;}
+  - type: horizontal-stack
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:config-template-card
+            entities:
+              - sensor.node_33_node_status
+            card:
+              type: markdown
+              content: |
+                  Last updated at {% from 'device_updated_days.jinja' import last_updated %} {{ last_updated('var.smoke_co2_lupd') }}
+              title: Smoke and CO2 Detector
+              card_mod:
+                style: |
+                  {% from 'device_updated_days.jinja' import entity_responsive_color %}
+                   ha-card {background-color: {{ entity_responsive_color('var.smoke_co2_lupd') }};}

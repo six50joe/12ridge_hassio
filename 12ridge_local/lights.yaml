@@ -1,0 +1,22 @@
+  - platform: template
+    lights:
+      path_lights:
+        friendly_name: "Path Lights"
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.front_path_lights
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: switch.front_path_lights
+      driveway_flood_light:
+        friendly_name: "Driveway Flood Light"
+        turn_on:
+          service: switch.turn_on
+          data:
+            entity_id: switch.driveway_floodlight_sensor
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: switch.driveway_floodlight_sensor
