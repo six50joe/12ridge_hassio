@@ -1,51 +1,3 @@
-- id: '1600695831917'
-  alias: Turn Track Lights On Full
-  description: ''
-  trigger: []
-  condition: []
-  action:
-  - brightness_pct: 100
-    device_id: 165e787014f64dc09c4c906cbe7e227a
-    domain: light
-    entity_id: light.track_light_dimmer
-    type: turn_on
-  mode: single
-- id: '1600695920076'
-  alias: Turn On Movie Lighting
-  description: ''
-  trigger: []
-  condition: []
-  action:
-  - brightness_pct: 1
-    device_id: 165e787014f64dc09c4c906cbe7e227a
-    domain: light
-    entity_id: light.track_light_dimmer
-    type: turn_on
-  mode: single
-- id: '1600696061493'
-  alias: Turn Off Track Lights
-  description: ''
-  trigger: []
-  condition: []
-  action:
-  - device_id: 165e787014f64dc09c4c906cbe7e227a
-    domain: light
-    entity_id: light.track_light_dimmer
-    type: turn_off
-  mode: single
-- id: '1600696163642'
-  alias: Turn Off Track Lights at Sunrise
-  description: ''
-  trigger:
-  - event: sunrise
-    platform: sun
-  condition: []
-  action:
-  - device_id: 165e787014f64dc09c4c906cbe7e227a
-    domain: light
-    entity_id: light.track_light_dimmer
-    type: turn_off
-  mode: single
 - id: set_joe_home_state
   alias: Set Joe Home State
   description: ''
@@ -177,3 +129,37 @@
       entity_id:
       - var.trusted_home
       value: false
+- id: '1705886769813'
+  alias: Restart Modem if no 34DT ping
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:00:00
+  condition:
+  - condition: state
+    entity_id: sensor.34dt_hassio
+    state: Down
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  action:
+  - service: notify.pushover
+    data:
+      message: Can't reach 34DT at midnight; rebooting modem
+      title: Restart Modem
+      target: six50joePhone
+  - type: turn_off
+    device_id: f15d84e8ec291475d43938976ffbd26f
+    entity_id: switch.modem_smart_switch
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - type: turn_on
+    device_id: f15d84e8ec291475d43938976ffbd26f
+    entity_id: switch.modem_smart_switch
+    domain: switch
+  mode: single

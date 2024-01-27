@@ -41,6 +41,9 @@ var: !include_dir_merge_named 12ridge_local/variables/
 # Automations I create in the UI
 automation: !include automations.yaml
 
+# 12R handmade automations
+automation manual: !include_dir_merge_list 12ridge_local/automations/
+
 # Sensors- Monitoring entities
 sensor: !include_dir_merge_list 12ridge_local/sensors
 
