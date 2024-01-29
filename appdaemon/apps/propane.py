@@ -45,7 +45,7 @@ class PropaneLevel(hass.Hass):
         time.sleep(9)
         self.log("Taking reading now")
         self.mimolite_sensor_update()
-            
+
     def read_mimolite(self, entity=None, data=None, kwargs=None):
         self.log("Setting MimoLite Relay Delay")
 #        self.call_service("zwave_js/set_config_parameter", node_id='19', parameter='11', value='150')
@@ -108,9 +108,12 @@ class PropaneLevel(hass.Hass):
     def send_notification(self, alert):
         self.log("Alerting: %s" % alert)
         self.call_service("notify/pushover", message=alert)
-            
+
     def mimolite_sensor_update(self, entity=None, data=None, arg1=None, arg2=None, arg3=None):
         sensor = float(self.get_state("sensor.mimolite_general_purpose", "state"))
+
+        self.call_service("var/set", entity_id='var.last_mimolite_reading', value=sensor)
+
         if sensor < 100.0:
             # self.log("Ignoring invalid read: %f" % sensor)
             return
@@ -120,7 +123,7 @@ class PropaneLevel(hass.Hass):
         updated = datetime.datetime.today().strftime('%m/%d/%Y  %H:%M:%S')
         self.call_service("var/set", entity_id='var.last_mimolite_update', value=updated)
         self.get_propane_level(None, sensor)
-        
+
     def get_propane_level(self, entity=None, data=None, arg1=None, arg2=None, arg3=None):
         self.log("Get Propane Level triggered")
         self.read_propane_thresholds()
@@ -129,13 +132,13 @@ class PropaneLevel(hass.Hass):
         prev_pct    = None
         prev_thresh = None
         calc_pct    = None
-        
+
         last_pct = list(sorted(propane_thresholds.keys()))[-1]
         while not calc_pct and retry < 3:
             if simulate:
                 # Simulation
                 sensor = float(simulate)
-            else: 
+            else:
                 sensor = data
                 if sensor > 1.0 and sensor < 100.0:
                     self.log("Low reading value %f, ignoring" % sensor)
@@ -151,7 +154,7 @@ class PropaneLevel(hass.Hass):
                        thresh = float(propane_thresholds[pct])
                        self.log("%s(%d) - next %s(%d)" % (str(prev_pct),
                                                                     prev_thresh,
-                                                                    str(pct), 
+                                                                    str(pct),
                                                                     thresh))
                        if prev_thresh <= sensor:
                             if pct == last_pct:
@@ -197,7 +200,7 @@ class PropaneLevel(hass.Hass):
             status = "Propane has been refilled to (%d%%)" % (calc_pct)
             self.send_notification(status)
             #self.call_service("var/set", entity_id='propane_alert', value=status)
-        
+
         self.check_low_level(50, calc_pct, prev_pct_state)
         self.check_low_level(40, calc_pct, prev_pct_state)
         self.check_low_level(30, calc_pct, prev_pct_state)

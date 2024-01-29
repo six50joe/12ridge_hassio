@@ -16,7 +16,11 @@ propane_alert:
   friendly_name: PropaneAlert
 last_mimolite_update:
   initial_value: ""
-  unique_id: MimoSensor
-  friendly_name: MimoSensor
+  unique_id: MimoSensorReadUpdateTime
+  friendly_name: MimoReadUpdateTime
+last_mimolite_reading:
+  initial_value: ""
+  unique_id: LastMimoSensorReading
+  friendly_name: LastMimoSensorReading
   
 
