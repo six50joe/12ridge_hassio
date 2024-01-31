@@ -22,5 +22,9 @@ last_mimolite_reading:
   initial_value: ""
   unique_id: LastMimoSensorReading
   friendly_name: LastMimoSensorReading
+view_propane_calibration:
+  initial_value: False
+  unique_id: ViewPropaneCalibaration
+  friendly_name: ViewPropaneCalibration
   
 

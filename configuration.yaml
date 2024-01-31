@@ -74,3 +74,10 @@ amcrest: !include 12ridge_local/cameras.yaml
 
 shopping_list:
 
+input_number: !include 12ridge_local/input_number.yaml
+
+
+input_boolean:
+  view_calibrate_propane:
+    name: Notify when someone arrives home
+#    icon: mdi:car

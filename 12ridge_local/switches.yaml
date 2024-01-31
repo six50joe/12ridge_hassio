@@ -16,4 +16,17 @@
 #        "volume_up": "JgBQAAABJpQUERM3FBETNxQ2FDYTOBMREzgTEhI4ExITERMSExITNxQREzcTEhM3EzgTEhISExITNxQREzcTEhMSEzcUNxM3EwAFJQABJEoTAA0FAAAAAAAA"
 #        "volume_down": "JgBYAAABJ5IWERM3FBETORE4EzcTNxQREzcUERM3ExITEhMSEhMSOBM3FDYUERM3FDYTEhMSExITEhMSEjgTEhITEjgTNxM3EwAFIQABKEoTAAxdAAEnShMADQUAAAAAAAAAAAAAAAAAAA=="
 #        "mute": "JgBcAAABIpQUERM3ExITNxM4EjgUNhMSEzcTEhM3FBETEhMSExITNxMSExISOBM3EzcTEhMSExITNxM3FBETEhMSEzcUNBU3EwAFIQABKEoUAAm2CwACmgABKUoTAA0FAAAAAAAAAAAAAA=="
-
+  - platform: template
+    switches:
+      view_calibration:
+        value_template: "{{ is_state('var.view_propane_calibration', 'True' ) }}"
+        turn_on:
+          service: var.set
+          data:
+            entity_id: var.view_propane_calibration
+            value: 'True'
+        turn_off:
+          service: var.set
+          data:
+            entity_id: var.view_propane_calibration
+            value: 'False'
