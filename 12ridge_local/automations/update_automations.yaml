@@ -57,6 +57,18 @@
     event_data:
       state: 'on'
   mode: single
+- id: calibrate_propane_sensor
+  alias: Calibrate Propane Sensor
+  description: ''
+  trigger: []
+  condition: []
+  action:
+  - event: calibrate_propane_sensor
+    event_data:
+      event_type: state_changed
+      event_data:
+        entity_id: input_number.propane_gauge_pct
+  mode: single
 - id: archive_logs
   alias: Create an archive tar file of current logs
   description: ''

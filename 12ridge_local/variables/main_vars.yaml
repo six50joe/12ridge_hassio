@@ -26,5 +26,12 @@ view_propane_calibration:
   initial_value: False
   unique_id: ViewPropaneCalibaration
   friendly_name: ViewPropaneCalibration
+calibration_status:
+  initial_value: Ready
+  unique_id: CalibrationStatus
+  friendly_name: Calibration Status
+calibration_result:
+  initial_value: Awaiting calibration action
+  unique_id: CalibrationResult
+  friendly_name: Calibration Result
   
-
