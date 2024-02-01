@@ -11,8 +11,8 @@ RELAY_THRESHOLDS_FILENAME = "relay_thresholds.txt"
 
 propane_thresholds = None
 max_reading        = None
-#simulate           = None
-simulate           = 1800
+simulate           = None
+#simulate           = 1800
 #
 # Read Propane Level
 #
