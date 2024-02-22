@@ -6,7 +6,7 @@ Life360 Joe,joe_lupd,person.joe_thomas,LOCATION
 Life360 Jamie,jamie_lupd,person.jamie_thomas,LOCATION
 Life360 Jemma,jemma_lupd,person.jemma_thomas,LOCATION
 Trusted Home,trusted_home_lupd,trusted_home,LOCATION
-Propane Level,propane_level_lupd,sensor.mimolite_general_purpose,UTILITIES
+Propane Level,propane_level_lupd,var.last_mimolite_reading,UTILITIES
 Outside Temperature,outside_temp_lupd,sensor.outdoor_environment_air_temperature,SENSOR
 Thermostat,thermostat_lupd,sensor.z_wave_thermostat_air_temperature,THERMOSTAT
 Path Light,path_light_lupd,switch.outdoor_lamp_current_value,LIGHT

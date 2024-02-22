@@ -84,7 +84,7 @@ cards:
         cards:
           - type: custom:config-template-card
             entities:
-              - sensor.mimolite_general_purpose
+              - var.last_mimolite_reading
             card:
               type: markdown
               content: |

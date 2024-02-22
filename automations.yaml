@@ -163,3 +163,17 @@
     entity_id: switch.modem_smart_switch
     domain: switch
   mode: single
+- id: '1706831665123'
+  alias: Daily Enablement of Notifications
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:00:00
+  condition: []
+  action:
+  - service: automation.trigger
+    target:
+      entity_id: automation.resume_notifications
+    data:
+      skip_condition: true
+  mode: single

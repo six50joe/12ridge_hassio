@@ -1,0 +1,32 @@
+- platform: template
+  sensors:
+    joe_wifi_tracker:
+      friendly_name: Joe Phone WiFi Tracker (SSID = six50joe5G)'
+      icon_template: >
+        mdi:wifi
+      value_template: >
+        {% if "larson" in states('sensor.six50joe_iphone15_ssid') %}
+          on
+        {% else %}
+          off
+        {% endif %}
+    jamie_wifi_tracker:
+      friendly_name: Jamie Phone WiFi Tracker (SSID = six50joe5G)'
+      icon_template: >
+        mdi:wifi
+      value_template: >
+        {% if "larson" in states('sensor.jamies_iphone_13_ssid') %}
+          on
+        {% else %}
+          off
+        {% endif %}
+    jemma_wifi_tracker:
+      friendly_name: Jemma Phone WiFi Tracker (SSID = six50joe5G)'
+      icon_template: >
+        mdi:wifi
+      value_template: >
+        {% if "larson" in states('sensor.jemmas_iphone_ssid') %}
+          on
+        {% else %}
+          off
+        {% endif %}

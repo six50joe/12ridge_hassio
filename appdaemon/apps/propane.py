@@ -99,9 +99,9 @@ class PropaneLevel(hass.Hass):
         attempts, return None.
         """
     
-#        self.log("Setting MimoLite Relay Delay")
-#        self.call_service("zwave_js/set_config_parameter", node_id='19', parameter='11', value='300')
-        #        self.call_service("zwave_js/set_config_parameter", device_id='f61ad85870bb394b844107e1f3a59e79', parameter=11, value=150)
+        self.log("Setting MimoLite Relay Delay")
+        # self.call_service("zwave_js/set_config_parameter", node_id='19', parameter='11', value='300')
+        self.call_service("zwave_js/set_config_parameter", device_id='f61ad85870bb394b844107e1f3a59e79', parameter=11, value=300)
 
         retry=0
         reading = None
