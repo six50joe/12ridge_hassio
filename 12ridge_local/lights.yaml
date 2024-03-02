@@ -15,8 +15,8 @@
         turn_on:
           service: switch.turn_on
           data:
-            entity_id: switch.driveway_floodlight_sensor
+            entity_id: switch.driveway_flood_light
         turn_off:
           service: switch.turn_off
           data:
-            entity_id: switch.driveway_floodlight_sensor
+            entity_id: switch.driveway_flood_light       
