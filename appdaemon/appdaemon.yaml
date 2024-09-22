@@ -14,6 +14,9 @@ admin:
 api:
 hadashboard:
 
+
+app_dir: /config/appdaemon/apps/
+
 logs:
   main_log:
     filename: /config/appdaemon/logs/appdaemon.log
@@ -26,6 +29,3 @@ logs:
     log_generations: 5
     log_size: 1024
     format: "{asctime} {levelname:<8} {appname:<10}: {message}"
-  test_log:
-    name: TestLog
-    filename: /config/appdaemon/logs/test.log

@@ -1,0 +1,37 @@
+home_name:
+  initial_value: 12Ridgewood
+  unique_id: HomeName
+  friendly_name: HomeName
+propane_percentage:
+  initial_value: 1
+  unique_id: PropanePercentage
+  friendly_name: PropanePercentage
+prev_propane_percentage:
+  initial_value: 1
+  unique_id: PropanePercentage
+  friendly_name: PropanePercentage
+propane_alert:
+  initial_value: ""
+  unique_id: PropaneAlert
+  friendly_name: PropaneAlert
+last_mimolite_update:
+  initial_value: ""
+  unique_id: MimoSensorReadUpdateTime
+  friendly_name: MimoReadUpdateTime
+last_mimolite_reading:
+  initial_value: ""
+  unique_id: LastMimoSensorReading
+  friendly_name: LastMimoSensorReading
+view_propane_calibration:
+  initial_value: False
+  unique_id: ViewPropaneCalibaration
+  friendly_name: ViewPropaneCalibration
+calibration_status:
+  initial_value: Ready
+  unique_id: CalibrationStatus
+  friendly_name: Calibration Status
+calibration_result:
+  initial_value: Awaiting calibration action
+  unique_id: CalibrationResult
+  friendly_name: Calibration Result
+  

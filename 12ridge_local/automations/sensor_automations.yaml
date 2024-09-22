@@ -1,0 +1,113 @@
+- id: lakehouse_smoke
+  alias: Smoke Detected
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.zcombo_g_smoke_co_alarm_smoke_detected
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.pushover
+    data:
+      message: Smoke detected at Lake House!
+      target:
+      - six50joePhone
+      - JamieIPhone
+      data:
+        priority: 2
+        retry: 500
+        expire: 7200
+- id: lakehouse_co
+  alias: Carbon Monoxide Detected
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.zcombo_g_smoke_co_alarm_carbon_monoxide_detected
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - service: notify.pushover
+    data:
+      message: Carbon Monoxide detected at Lake House!
+      target:
+      - six50joePhone
+      - JamieIPhone
+      data:
+        priority: 2
+        retry: 500
+        expire: 7200
+- id: lakehouse_flood
+  alias: Water detected in basement
+  description: ''
+  trigger:
+  - entity_id: sensor.flood_status
+    from: dry
+    platform: state
+    to: flood
+  condition: []
+  action:
+  - service: notify.pushover
+    data:
+      message: Lakehouse- Water detected on basement floor
+      target:
+      - six50joePhone
+      - JamieIPhone
+      data:
+        priority: 2
+        retry: 900
+        expire: 7200
+        sound: mechanical
+  alias: Check Goldens Bridge Disconnected
+  description: ''
+  trigger:
+  - entity_id: sensor.34dt_hassio
+    from: Up
+    platform: state
+    to: Down
+  condition: []
+  action:
+  - service: notify.pushover
+    data:
+      message: Goldens Bridge had been reachable but is now not
+      target:
+      - six50joePhone
+  mode: single
+- id: 34dt_reconnected
+  alias: Check Goldens Reconnected
+  description: ''
+  trigger:
+  - entity_id: sensor.34dt_hassio
+    from: Down
+    platform: state
+    to: Up
+  condition: []
+  action:
+  - service: notify.pushover
+    data:
+      message: Goldens Bridge is now reachable
+      target:
+      - six50joePhone
+  mode: single
+- id: lakehouse_low_temperature
+  alias: Lakehouse Low Temperature
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.thermostat_temperature
+    below: '47'
+  condition: []
+  action:
+  - service: notify.pushover
+    data:
+      message: Lake house temperature dangerously low!
+      target:
+      - six50joePhone
+      - JamieIPhone
+      data:
+        priority: 2
+        retry: 900
+        expire: 7200
+        sound: climb
+  mode: single

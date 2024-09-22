@@ -1,0 +1,7 @@
+  propane_gauge_pct:
+    name: Calibrate Reading to Gauge Pct
+    initial: 0
+    min: 0
+    max: 100
+    step: 1
+    mode: box

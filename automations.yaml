@@ -1,394 +1,3 @@
-- id: Lake_Hassio_Rebooted
-  alias: Reboot notification
-  description: Notify when system rebooted
-  trigger:
-  - event: start
-    platform: homeassistant
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      message: Lake house Haassio Rebooted
-      target:
-        - six50joePhone
-      data:
-        priority: 0
-- id: lakehouse_smoke
-  alias: Smoke Detected
-  description: ''
-  trigger:
-  - entity_id: binary_sensor.zcombo_g_smoke_co_alarm_smoke_detected
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      message: Smoke detected at Lake House!
-      target:
-        - six50joePhone
-        - JamieIPhone
-      data:
-        priority: 2
-        retry: 500
-        expire: 7200
-- id: lakehouse_co
-  alias: Carbon Monoxide Detected
-  description: ''
-  trigger:
-  - entity_id: binary_sensor.zcombo_g_smoke_co_alarm_carbon_monoxide_detected
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      message: Carbon Monoxide detected at Lake House!
-      target:
-        - six50joePhone
-        - JamieIPhone
-      data:
-        priority: 2
-        retry: 500
-        expire: 7200
-- id: lakehouse_flood
-  alias: Water detected in basement
-  description: ''
-  trigger:
-  - entity_id: sensor.flood_status
-    from: dry
-    platform: state
-    to: flood
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      message: Lakehouse- Water detected on basement floor
-      target:
-        - six50joePhone
-        - JamieIPhone
-      data:
-        priority: 2
-        retry: 900
-        expire: 7200
-        sound: mechanical
-- id: '1588362768033'
-  alias: Propane Reading Old
-  description: ''
-  trigger: []
-  condition: []
-  action:
-  - data:
-      node_id: 19
-      parameter: 11
-      size: 1
-      value: 100
-    service: zwave_js.set_config_parameter
-  - device_id: 1376937c0ea042f5be036cefd84348bd
-    domain: switch
-    entity_id: switch.mimolite_switch
-    type: turn_on
-  - data_template:
-      node_id: 19
-      value_id: '72057594361692194'
-    service: zwave.refresh_node_value
-  - delay: '2'
-  - data_template:
-      node_id: 19
-      value_id: '72057594361692194'
-    service: zwave.refresh_node_value
-  - data:
-      name: Joe
-    service: python_script.hello_world
-- id: '1588367245709'
-  alias: ZWRefreshTest
-  description: ''
-  trigger: []
-  condition: []
-  action:
-  - service: zwave.refresh_node_value
-    data_template:
-      node_id: 19
-      value_id: '72057594361692194'
-- id: '1588717297110'
-  alias: Read Propane Level
-  description: ''
-  trigger: []
-  condition: []
-  action:
-  - event: update_propane_level
-    event_data:
-      state: 'on'
-- id: '1589322076669'
-  alias: Daily Propane Level Update
-  description: ''
-  trigger:
-  - event: sunrise
-    platform: sun
-  condition: []
-  action:
-  - event: update_propane_level
-    event_data:
-      state: 'on'
-  mode: single
-- id: archive_logs
-  alias: Create an archive tar file of current logs
-  description: ''
-  trigger:
-  - event: sunrise
-    platform: sun
-  condition: []
-  action:
-  - event: create_archive
-    event_data:
-      state: 'on'
-- id: joe_left_home
-  alias: Joe Left Home
-  description: ''
-  trigger:
-  - entity_id: person.joe_thomas
-    from: 'on'
-    platform: state
-    to: 'off'
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      message: Joe Left Home
-      target:
-        - six50joePhone
-        - JamieIPhone
-      data:
-        priority: -1
-- id: jamie_left_home
-  alias: Jamie Left Home
-  description: ''
-  trigger:
-  - entity_id: person.jamie_thomas
-    from: 'on'
-    platform: state
-    to: 'off'
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      message: Jamie Left Home
-      target:
-        - six50joePhone
-      data:
-        priority: -1
-- id: joe_arrived_home
-  alias: Joe Arrived Home
-  description: ''
-  trigger:
-  - entity_id: person.joe_thomas
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      message: Joe Arrived Home
-      target:
-        - six50joePhone
-        - JamieIPhone
-      data:
-        priority: -1
-- id: jamie_arrived_home
-  alias: Jamie Arrived Home
-  description: ''
-  trigger:
-  - entity_id: person.jamie_thomas
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      message: Jamie Arrived Home
-      target:
-        - six50joePhone
-      data:
-        priority: -1
-- id: '1590326915142'
-  alias: Front Door Event Test
-  description: ''
-  trigger:
-  - entity_id: sensor.front_door_alarm_level
-    platform: state
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      message: Front Door Event
-      target:
-        - six50joePhone
-      data:
-        priority: -1
-- id: set_zwave_device_params
-  alias: Set ZWave Device Params
-  description: ''
-  trigger: []
-  condition: []
-  action:
-  - event: set_zwave_device_params
-    event_data:
-      state: 'on'
-- id: front_door_opened
-  alias: Front Door Opened
-  description: ''
-  trigger:
-  - entity_id: binary_sensor.front_door_sensor
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition:
-  - condition: not
-    conditions:
-    - condition: template
-      value_template: '{{ states(''var.trusted_home'').lower()  == ''true'' }}'
-  action:
-  - service: notify.pushover
-    data:
-      message: Lakehouse Front Door opened while away.
-      target:
-        - six50joePhone
-        - JamieIPhone
-      data:
-        priority: 2
-        retry: 1800
-        expire: 3600
-  mode: single
-- id: garage_door_opened
-  alias: Garage Door Opened
-  description: ''
-  trigger:
-  - entity_id: binary_sensor.ecolink_garage_door_tilt_sensor_access_control_window_door_is_open
-    platform: state
-    from: 'off'
-    to: 'on'
-  condition:
-  - condition: not
-    conditions:
-    - condition: template
-      value_template: '{{ states(''var.trusted_home'').lower()  == ''true'' }}'
-  action:
-  - service: notify.pushover
-    data:
-      message: Lakehouse Garage Door opened while away.
-      target:
-        - six50joePhone
-        - JamieIPhone
-      data:
-        priority: 2
-        retry: 1800
-        expire: 3600
-  mode: single
-- id: 34dt_disconnected
-  alias: Check Goldens Bridge Disconnected
-  description: ''
-  trigger:
-  - entity_id: sensor.34dt_hassio
-    from: Up
-    platform: state
-    to: Down
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      message: Goldens Bridge had been reachable but is now not
-      target:
-        - six50joePhone
-  mode: single
-- id: 34dt_reconnected
-  alias: Check Goldens Reconnected
-  description: ''
-  trigger:
-  - entity_id: sensor.34dt_hassio
-    from: Down
-    platform: state
-    to: Up
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      message: Goldens Bridge is now reachable
-      target:
-        - six50joePhone
-  mode: single
-- id: '1600695831917'
-  alias: Turn Track Lights On Full
-  description: ''
-  trigger: []
-  condition: []
-  action:
-  - brightness_pct: 100
-    device_id: 165e787014f64dc09c4c906cbe7e227a
-    domain: light
-    entity_id: light.track_light_dimmer
-    type: turn_on
-  mode: single
-- id: '1600695920076'
-  alias: Turn On Movie Lighting
-  description: ''
-  trigger: []
-  condition: []
-  action:
-  - brightness_pct: 1
-    device_id: 165e787014f64dc09c4c906cbe7e227a
-    domain: light
-    entity_id: light.track_light_dimmer
-    type: turn_on
-  mode: single
-- id: '1600696061493'
-  alias: Turn Off Track Lights
-  description: ''
-  trigger: []
-  condition: []
-  action:
-  - device_id: 165e787014f64dc09c4c906cbe7e227a
-    domain: light
-    entity_id: light.track_light_dimmer
-    type: turn_off
-  mode: single
-- id: '1600696163642'
-  alias: Turn Off Track Lights at Sunrise
-  description: ''
-  trigger:
-  - event: sunrise
-    platform: sun
-  condition: []
-  action:
-  - device_id: 165e787014f64dc09c4c906cbe7e227a
-    domain: light
-    entity_id: light.track_light_dimmer
-    type: turn_off
-  mode: single
-- id: '1611233090737'
-  alias: Lakehouse Low Temperature
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.thermostat_temperature
-    below: '47'
-  condition: []
-  action:
-  - service: notify.pushover
-    data:
-      message: Lake house temperature dangerously low!
-      target:
-        - six50joePhone
-        - JamieIPhone
-      data:
-        priority: 2
-        retry: 900
-        expire: 7200
-        sound: climb
-  mode: single
 - id: set_joe_home_state
   alias: Set Joe Home State
   description: ''
@@ -429,18 +38,6 @@
     event_data:
       person: jamie
       state: not_home
-- id: '1643290605854'
-  alias: Refresh CT100 Thermostat Air Temperature
-  description: Remove this automation when HA fixes CT100 integration
-  trigger:
-  - platform: time_pattern
-    minutes: /10
-  condition: []
-  action:
-  - service: zwave_js.refresh_value
-    data:
-      entity_id: sensor.z_wave_thermostat_air_temperature
-  mode: single
 - id: '1657994392567'
   alias: TV On
   description: ''
@@ -515,8 +112,8 @@
     - condition: or
       conditions:
       - condition: template
-        value_template: '{{ states(''person.joe_thomas'').lower()  == ''home'' or states(''person.jamie_thomas'').lower()
-          == ''home'' }}'
+        value_template: '{{ states(''person.joe_thomas'').lower()  == ''home'' or
+          states(''person.jamie_thomas'').lower() == ''home'' }}'
       - condition: time
         after: 07:00:00
         before: 09:00:00
@@ -532,3 +129,51 @@
       entity_id:
       - var.trusted_home
       value: false
+- id: '1705886769813'
+  alias: Restart Modem if no 34DT ping
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:00:00
+  condition:
+  - condition: state
+    entity_id: sensor.34dt_hassio
+    state: Down
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  action:
+  - service: notify.pushover
+    data:
+      message: Can't reach 34DT at midnight; rebooting modem
+      title: Restart Modem
+      target: six50joePhone
+  - type: turn_off
+    device_id: f15d84e8ec291475d43938976ffbd26f
+    entity_id: switch.modem_smart_switch
+    domain: switch
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - type: turn_on
+    device_id: f15d84e8ec291475d43938976ffbd26f
+    entity_id: switch.modem_smart_switch
+    domain: switch
+  mode: single
+- id: '1706831665123'
+  alias: Daily Enablement of Notifications
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:00:00
+  condition: []
+  action:
+  - service: automation.trigger
+    target:
+      entity_id: automation.resume_notifications
+    data:
+      skip_condition: true
+  mode: single

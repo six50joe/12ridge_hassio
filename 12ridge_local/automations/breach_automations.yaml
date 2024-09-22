@@ -1,0 +1,48 @@
+- id: front_door_opened
+  alias: Front Door Opened
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.front_door_sensor
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.nobody_home
+    state: 'on'
+  action:
+  - service: notify.pushover
+    data:
+      message: Lakehouse Front Door opened while away.
+      target:
+      - six50joePhone
+      - JamieIPhone
+      data:
+        priority: 2
+        retry: 1800
+        expire: 3600
+  mode: single
+- id: garage_door_opened
+  alias: Garage Door Opened
+  description: ''
+  trigger:
+  - entity_id: binary_sensor.ecolink_garage_door_tilt_sensor_access_control_window_door_is_open
+    platform: state
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.nobody_home
+    state: 'on'
+  action:
+  - service: notify.pushover
+    data:
+      message: Lakehouse Garage Door opened while away.
+      target:
+      - six50joePhone
+      - JamieIPhone
+      data:
+        priority: 2
+        retry: 1800
+        expire: 3600
+  mode: single
